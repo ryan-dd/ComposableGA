@@ -8,19 +8,20 @@ namespace EvoAlgos
   class OptimizationProblem
   {
     public:
-      OptimizationProblem(int number_of_parameters, std::vector<std::vector<float> > constraints);
+      OptimizationProblem(int number_of_parameters, std::vector<std::vector<double> > constraints);
       virtual ~OptimizationProblem();
-      float objective_function(std::vector<float>);
+      double objective_function(std::vector<double>);
       const int& get_num_parameters();
-      const std::vector<std::vector<float> >& get_constraints();
+      const std::vector<std::vector<double> >& get_constraints();
+      
+      static const std::string NUM_PARAMS_GREATER_ZERO_ERROR_MSG;
+      static const std::string CONSTRAINT_PARAMETER_MATCH_ERROR_MSG;
+      static const std::string CONSTRAINT_SIZE_ERROR_MSG;
 
     private:
       int mNumParameters;
-      std::vector<std::vector<float> > mConstraints;
+      std::vector<std::vector<double> > mConstraints;
   };
 
-  inline const std::string NUM_PARAMS_GREATER_ZERO_ERROR_MSG = "Number of parameters must be greater than 0";
-  inline const std::string CONSTRAINT_PARAMETER_MATCH_ERROR_MSG = "Constraints do not equal parameters";
-  inline const std::string CONSTRAINT_SIZE_ERROR_MSG = "Constraints must have 2 values: lower bounds and upper bounds";
 }
 #endif

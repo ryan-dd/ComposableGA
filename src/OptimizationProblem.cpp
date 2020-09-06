@@ -4,11 +4,11 @@
 
 #include "OptimizationProblem.hpp"
 
-float EvoAlgos::OptimizationProblem::objective_function(std::vector<float> inputs)
+double EvoAlgos::OptimizationProblem::objective_function(std::vector<double> inputs)
 {
   // Rosenbrock function
-  float x = inputs[0];
-  float y = inputs[1];
+  double x = inputs[0];
+  double y = inputs[1];
   int a = 1;
   int b = 100;
   return pow((a-x), 2) + b*pow((y-pow(x, 2)), 2);
@@ -19,12 +19,16 @@ const int& EvoAlgos::OptimizationProblem::get_num_parameters()
   return mNumParameters;
 }
       
-const std::vector<std::vector<float> >& EvoAlgos::OptimizationProblem::get_constraints()
+const std::vector<std::vector<double> >& EvoAlgos::OptimizationProblem::get_constraints()
 {
   return mConstraints;
 }
 
-EvoAlgos::OptimizationProblem::OptimizationProblem(int number_of_parameters, std::vector<std::vector<float> > constraints):
+const std::string EvoAlgos::OptimizationProblem::NUM_PARAMS_GREATER_ZERO_ERROR_MSG = "Number of parameters must be greater than 0";
+const std::string EvoAlgos::OptimizationProblem::CONSTRAINT_PARAMETER_MATCH_ERROR_MSG = "Constraints do not equal parameters";
+const std::string EvoAlgos::OptimizationProblem::CONSTRAINT_SIZE_ERROR_MSG = "Constraints must have 2 values: lower bounds and upper bounds";
+
+EvoAlgos::OptimizationProblem::OptimizationProblem(int number_of_parameters, std::vector<std::vector<double> > constraints):
   mNumParameters(number_of_parameters),
   mConstraints(constraints)
 {
