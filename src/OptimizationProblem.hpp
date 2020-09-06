@@ -18,5 +18,9 @@ namespace EvoAlgos
       int mNumParameters;
       std::vector<std::vector<float> > mConstraints;
   };
+
+  inline const std::string NUM_PARAMS_GREATER_ZERO_ERROR_MSG = "Number of parameters must be greater than 0";
+  inline const std::string CONSTRAINT_PARAMETER_MATCH_ERROR_MSG = "Constraints do not equal parameters";
+  inline const std::string CONSTRAINT_SIZE_ERROR_MSG = "Constraints must have 2 values: lower bounds and upper bounds";
 }
 #endif

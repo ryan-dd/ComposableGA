@@ -12,5 +12,13 @@ TEST(OptiProblem, VerifyRosenbrockObjectiveFunction) {
 TEST(OptiProblem, InputParameterValidation) {
     int number_of_parameters = 2;
     std::vector<std::vector<float> > constraints{{-10}, {-10, 10}};
-    ASSERT_THROW(EvoAlgos::OptimizationProblem(number_of_parameters, constraints), std::runtime_error);
+    ASSERT_THROW({
+        try {
+            EvoAlgos::OptimizationProblem(number_of_parameters, constraints);
+        }
+        catch(const std::exception& e) {
+            ASSERT_EQ(e.what(), EvoAlgos::CONSTRAINT_SIZE_ERROR_MSG);
+            throw;
+        }    
+    }, std::runtime_error);
 }

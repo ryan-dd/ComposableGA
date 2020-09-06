@@ -26,9 +26,6 @@ const std::vector<std::vector<float> >& EvoAlgos::OptimizationProblem::get_const
   return mConstraints;
 }
 
-const std::string NUM_PARAMS_GREATER_ZERO_ERROR_MSG = "Number of parameters must be greater than 0";
-const std::string CONSTRAINT_PARAMETER_MATCH_ERROR_MSG = "Constraints do not equal parameters";
-const std::string CONSTRAINT_SIZE_ERROR_MSG = "Constraints must have 2 values: lower bounds and upper bounds";
 EvoAlgos::OptimizationProblem::OptimizationProblem(int number_of_parameters, std::vector<std::vector<float> > constraints):
   mNumParameters(number_of_parameters),
   mConstraints(constraints)
