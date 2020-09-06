@@ -8,3 +8,9 @@ TEST(OptiProblem, VerifyRosenbrockObjectiveFunction) {
     float example_result = problem.objective_function(std::vector<float>{-1, 3});
     ASSERT_EQ(example_result, 404);
 }
+
+TEST(OptiProblem, InputParameterValidation) {
+    int number_of_parameters = 2;
+    std::vector<std::vector<float> > constraints{{-10}, {-10, 10}};
+    ASSERT_THROW(EvoAlgos::OptimizationProblem(number_of_parameters, constraints), std::runtime_error);
+}
