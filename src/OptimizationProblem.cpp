@@ -2,13 +2,11 @@
 #include <math.h>
 #include <string>
 
-
 #include "OptimizationProblem.hpp"
-
 
 float EvoAlgos::OptimizationProblem::objective_function(std::vector<float> inputs)
 {
-  // rosenbrock function
+  // Rosenbrock function
   float x = inputs[0];
   float y = inputs[1];
   int a = 1;
