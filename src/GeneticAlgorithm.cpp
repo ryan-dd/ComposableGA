@@ -5,11 +5,13 @@
 
 #include "GeneticAlgorithm.hpp"
 
-EvoAlgos::GeneticAlgorithm::GeneticAlgorithm(int pop_number, int max_iterations, int k_tournament_selection)
+EvoAlgos::GeneticAlgorithm::GeneticAlgorithm(int pop_number, int max_iterations, int k_tournament_selection, double crossover_probability, double mutation_probability)
 {
     this->_max_iterations = max_iterations;
     this->_pop_number = pop_number;
     this->_k_tournament_selection = k_tournament_selection;
+    this->_crossover_probability = crossover_probability;
+    this->_mutation_probability = mutation_probability;
     _scores = std::vector<double> (pop_number, 0);
 }
     
@@ -24,7 +26,7 @@ std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::run(EvoAlgos::Opti
     {
         evaluate(_starting_population, problem);
         std::vector<std::vector<double> > new_parents = select_parents();
-        _starting_population = new_parents;
+        std::vector<std::vector<double> > new_population = crossover(new_parents);
     }
     return _starting_population;
 }
@@ -66,7 +68,6 @@ std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::select_parents()
 
 int EvoAlgos::GeneticAlgorithm::_tournament_selection(std::vector<int> chromosome_indices)
 {
-    std::mt19937 gen;
     std::vector<double> selected_scores = std::vector<double>(chromosome_indices.size());
     for (int i = 0; i < selected_scores.size(); ++i)
     {
@@ -92,5 +93,29 @@ std::vector<int> EvoAlgos::GeneticAlgorithm::_pick_random_chromosome(int k)
     std::vector<int> random_indices(first, last);
 	return random_indices;
 }
+
+std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::crossover(std::vector<std::vector<double> > population)
+{
+    std::mt19937 probability_generator(std::random_device{}());
+    std::uniform_real_distribution<> real_dist(0, 1);
+
+    std::mt19937 number_generator(std::random_device{}());
+    std::uniform_int_distribution<> int_dist(0, population[0].size()-1);
+
+    for (int i = 0; i < population.size()/2; ++i)
+    {
+        double probability = real_dist(probability_generator);
+        if (probability < _crossover_probability)
+        {
+            int crossover_index = int_dist(number_generator);
+            std::vector<double>& first = population[2*i];
+            std::vector<double>& second = population[2*i+1];
+            std::swap_ranges(first.begin(), first.begin()+crossover_index+1, second.begin());
+        }
+
+    }
+    return population;
+}
+
 
 

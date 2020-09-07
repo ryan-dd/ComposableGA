@@ -7,6 +7,6 @@ TEST(Integration, TestRosenbrockWithGeneticAlgo) {
     int number_of_parameters = 2;
     std::vector<std::vector<double> > constraints{{-10, 10}, {-10, 10}};
     EvoAlgos::OptimizationProblem opti_problem = EvoAlgos::OptimizationProblem(number_of_parameters, constraints);
-    EvoAlgos::GeneticAlgorithm algo = EvoAlgos::GeneticAlgorithm(10, 7, 5);
+    EvoAlgos::GeneticAlgorithm algo = EvoAlgos::GeneticAlgorithm(10, 7, 5, 0.8, 0.4);
     algo.run(opti_problem);
 }
