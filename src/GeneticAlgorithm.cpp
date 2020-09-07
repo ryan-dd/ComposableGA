@@ -19,7 +19,7 @@ EvoAlgos::GeneticAlgorithm::~GeneticAlgorithm()
 {
 }
 
-std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::run(EvoAlgos::OptimizationProblem problem)
+std::vector<double> EvoAlgos::GeneticAlgorithm::run(EvoAlgos::OptimizationProblem problem)
 {
     _starting_population = generate_initial_solutions(problem);
     for (int i = 0; i < _max_iterations; ++i)
@@ -27,8 +27,17 @@ std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::run(EvoAlgos::Opti
         evaluate(_starting_population, problem);
         std::vector<std::vector<double> > new_parents = select_parents();
         std::vector<std::vector<double> > new_population = crossover(new_parents);
+        _starting_population = mutate(new_population, problem);
     }
-    return _starting_population;
+
+    return _get_best_chromosome();
+}
+
+std::vector<double> EvoAlgos::GeneticAlgorithm::_get_best_chromosome()
+{
+    auto it = std::max_element(_scores.begin(), _scores.end());
+    int max_index = it - _scores.begin();
+    return _starting_population[max_index];
 }
 
 std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::generate_initial_solutions(EvoAlgos::OptimizationProblem problem)
@@ -116,6 +125,35 @@ std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::crossover(std::vec
     }
     return population;
 }
+
+std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::mutate(std::vector<std::vector<double> > population, EvoAlgos::OptimizationProblem problem)
+{
+    std::mt19937 probability_generator(std::random_device{}());
+    std::uniform_real_distribution<> real_dist(0, 1);
+
+    std::mt19937 number_generator(std::random_device{}());
+    std::uniform_int_distribution<> int_dist(0, population[0].size()-1);
+
+    std::mt19937 mutation_generator(std::random_device{}());
+
+    for (int i = 0; i < population.size(); ++i)
+    {
+        double probability = real_dist(probability_generator);
+        if (probability < _mutation_probability)
+        {
+            std::vector<double>& chromosome = population[i];
+            int mutation_index = int_dist(number_generator);
+            double number = real_dist(mutation_generator);
+            double lower_bound = problem.get_constraints()[mutation_index][0];
+            double upper_bound = problem.get_constraints()[mutation_index][1];
+            chromosome[mutation_index] = number*(upper_bound-lower_bound)+lower_bound;
+        }
+    }
+    return population;
+}
+
+
+
 
 
 
