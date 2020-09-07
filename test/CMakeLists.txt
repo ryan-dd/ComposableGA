@@ -5,4 +5,4 @@ target_include_directories(runTests PUBLIC ${gtest_SOURCE_DIR}/include ${gtest_S
 target_link_libraries(runTests PUBLIC gtest gtest_main pthread)
 target_include_directories(runTests PUBLIC ${PROJECT_SOURCE_DIR}/src)
 target_link_libraries(runTests PUBLIC EvoAlgo)
-add_test(NAME runTests COMMAND testDriver)
+add_test(runTests runTests) 
