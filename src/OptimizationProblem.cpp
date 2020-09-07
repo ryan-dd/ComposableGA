@@ -7,8 +7,8 @@
 double EvoAlgos::OptimizationProblem::objective_function(std::vector<double> inputs)
 {
   // Rosenbrock function
-  double x = inputs[0];
-  double y = inputs[1];
+  double& x = inputs[0];
+  double& y = inputs[1];
   int a = 1;
   int b = 100;
   return pow((a-x), 2) + b*pow((y-pow(x, 2)), 2);

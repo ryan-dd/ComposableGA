@@ -10,11 +10,15 @@ namespace EvoAlgos{
     private:
         std::vector<double> _scores;
         std::vector<std::vector<double> > _starting_population;
-        int pop_number;
-        int max_iterations;
+        int _pop_number;
+        int _max_iterations;
+        int _k_tournament_selection;
+
+        std::vector<int> _pick_random_chromosome(int k);
+        int _tournament_selection(std::vector<int> chromosome_indices);
 
     public:
-        GeneticAlgorithm(int pop_number, int max_iterations);
+        GeneticAlgorithm(int pop_number, int max_iterations, int k_tournament_selection);
         ~GeneticAlgorithm();
         std::vector<std::vector<double> > run(EvoAlgos::OptimizationProblem problem);
 
