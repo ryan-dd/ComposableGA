@@ -9,7 +9,7 @@ namespace EvoAlgos{
     {
     private:
         std::vector<double> _scores;
-        std::vector<std::vector<double> > _starting_population;
+        std::vector<std::vector<double> > _current_population;
         int _pop_number;
         int _max_iterations;
         int _k_tournament_selection;

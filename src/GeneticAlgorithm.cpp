@@ -21,23 +21,16 @@ EvoAlgos::GeneticAlgorithm::~GeneticAlgorithm()
 
 std::vector<double> EvoAlgos::GeneticAlgorithm::run(EvoAlgos::OptimizationProblem problem)
 {
-    _starting_population = generate_initial_solutions(problem);
+    _current_population = generate_initial_solutions(problem);
     for (int i = 0; i < _max_iterations; ++i)
     {
-        evaluate(_starting_population, problem);
+        evaluate(_current_population, problem);
         std::vector<std::vector<double> > new_parents = select_parents();
         std::vector<std::vector<double> > new_population = crossover(new_parents);
-        _starting_population = mutate(new_population, problem);
+        _current_population = mutate(new_population, problem);
     }
 
     return _get_best_chromosome();
-}
-
-std::vector<double> EvoAlgos::GeneticAlgorithm::_get_best_chromosome()
-{
-    auto it = std::max_element(_scores.begin(), _scores.end());
-    int max_index = it - _scores.begin();
-    return _starting_population[max_index];
 }
 
 std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::generate_initial_solutions(EvoAlgos::OptimizationProblem problem)
@@ -46,8 +39,8 @@ std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::generate_initial_s
     const auto& constraints = problem.get_constraints();
     std::vector<std::vector<double> > initial_solutions(_pop_number, std::vector<double>(num_parameters, 0));
     std::mt19937 number_generator(std::random_device{}());
-    for (int population_index = 0; population_index < _pop_number; ++population_index) {
-        for (int parameter_index = 0; parameter_index < num_parameters; ++parameter_index) {
+    for (int parameter_index = 0; parameter_index < num_parameters; ++parameter_index) {
+        for (int population_index = 0; population_index < _pop_number; ++population_index) {
             std::uniform_real_distribution<> dist(constraints[parameter_index][0], constraints[parameter_index][1]);
             initial_solutions[population_index][parameter_index] = dist(number_generator);
         }
@@ -70,9 +63,25 @@ std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::select_parents()
     {
         std::vector<int> run_indices = _pick_random_chromosome(_k_tournament_selection);
         int parent_index = _tournament_selection(run_indices);
-        parents[i] = _starting_population[parent_index];
+        parents[i] = _current_population[parent_index];
     }
     return parents;
+}
+
+std::vector<int> EvoAlgos::GeneticAlgorithm::_pick_random_chromosome(int k)
+{
+    std::vector<int> all_indices(_pop_number);
+    for (size_t i = 0; i < all_indices.size(); ++i)
+        all_indices[i] = i;
+    
+    std::random_device rd;
+    std::mt19937 prng(rd());
+    std::shuffle(all_indices.begin(), all_indices.end(), prng);
+    auto first = all_indices.cbegin();
+	auto last = all_indices.cbegin() + k + 1;
+
+    std::vector<int> random_indices(first, last);
+	return random_indices;
 }
 
 int EvoAlgos::GeneticAlgorithm::_tournament_selection(std::vector<int> chromosome_indices)
@@ -85,22 +94,6 @@ int EvoAlgos::GeneticAlgorithm::_tournament_selection(std::vector<int> chromosom
     auto it = std::max_element(selected_scores.begin(), selected_scores.end());
     int max_index = it - selected_scores.begin();
     return chromosome_indices[max_index];
-}
-
-std::vector<int> EvoAlgos::GeneticAlgorithm::_pick_random_chromosome(int k)
-{
-    std::vector<int> indices(_pop_number);
-    for (size_t i = 0; i < indices.size(); ++i)
-        indices[i] = i;
-    
-    std::random_device rd;
-    std::mt19937 prng(rd());
-    std::shuffle(indices.begin(), indices.end(), prng);
-    auto first = indices.cbegin();
-	auto last = indices.cbegin() + k + 1;
-
-    std::vector<int> random_indices(first, last);
-	return random_indices;
 }
 
 std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::crossover(std::vector<std::vector<double> > population)
@@ -152,8 +145,9 @@ std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::mutate(std::vector
     return population;
 }
 
-
-
-
-
-
+std::vector<double> EvoAlgos::GeneticAlgorithm::_get_best_chromosome()
+{
+    auto it = std::max_element(_scores.begin(), _scores.end());
+    int max_index = it - _scores.begin();
+    return _current_population[max_index];
+}
