@@ -9,17 +9,15 @@ double EvoAlgos::OptimizationProblem::objective_function(std::vector<double> inp
   // Rosenbrock function
   double& x = inputs[0];
   double& y = inputs[1];
-  int a = 1;
-  int b = 100;
   return pow((a-x), 2) + b*pow((y-pow(x, 2)), 2);
 }
 
-const int& EvoAlgos::OptimizationProblem::get_num_parameters()
+int EvoAlgos::OptimizationProblem::get_num_parameters()
 {
   return mNumParameters;
 }
       
-const std::vector<std::vector<double> >& EvoAlgos::OptimizationProblem::get_constraints()
+std::vector<std::vector<double> >& EvoAlgos::OptimizationProblem::get_constraints()
 {
   return mConstraints;
 }
@@ -47,6 +45,8 @@ EvoAlgos::OptimizationProblem::OptimizationProblem(int number_of_parameters, std
       throw std::runtime_error(CONSTRAINT_SIZE_ERROR_MSG); 
     }
   }
+  a = 1;
+  b = 100;
   
 }
 

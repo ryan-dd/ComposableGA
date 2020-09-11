@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cstddef>
 #include <iostream>
 #include <list>
 #include <random>
@@ -35,7 +36,7 @@ std::vector<double> EvoAlgos::GeneticAlgorithm::run(EvoAlgos::OptimizationProble
 
 std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::generate_initial_solutions(EvoAlgos::OptimizationProblem problem)
 {
-    const int& num_parameters = problem.get_num_parameters();
+    const int num_parameters = problem.get_num_parameters();
     const auto& constraints = problem.get_constraints();
     std::vector<std::vector<double> > initial_solutions(_pop_number, std::vector<double>(num_parameters, 0));
     std::mt19937 number_generator(std::random_device{}());
@@ -50,7 +51,7 @@ std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::generate_initial_s
 
 void EvoAlgos::GeneticAlgorithm::evaluate(std::vector<std::vector<double> > solution_population, EvoAlgos::OptimizationProblem problem)
 {
-    for (int i = 0; i < solution_population.size(); ++i)
+    for (std::size_t i = 0; i < solution_population.size(); ++i)
     {
         _scores[i] = problem.objective_function(solution_population[i]);
     }
@@ -59,7 +60,7 @@ void EvoAlgos::GeneticAlgorithm::evaluate(std::vector<std::vector<double> > solu
 std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::select_parents()
 {  
     std::vector<std::vector<double> > parents = std::vector<std::vector<double> >(_pop_number);
-    for (int i = 0; i < parents.size(); ++i)
+    for (std::size_t i = 0; i < parents.size(); ++i)
     {
         std::vector<int> run_indices = _pick_random_chromosome(_k_tournament_selection);
         int parent_index = _tournament_selection(run_indices);
@@ -71,7 +72,7 @@ std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::select_parents()
 std::vector<int> EvoAlgos::GeneticAlgorithm::_pick_random_chromosome(int k)
 {
     std::vector<int> all_indices(_pop_number);
-    for (size_t i = 0; i < all_indices.size(); ++i)
+    for (std::size_t i = 0; i < all_indices.size(); ++i)
         all_indices[i] = i;
     
     std::random_device rd;
@@ -87,7 +88,7 @@ std::vector<int> EvoAlgos::GeneticAlgorithm::_pick_random_chromosome(int k)
 int EvoAlgos::GeneticAlgorithm::_tournament_selection(std::vector<int> chromosome_indices)
 {
     std::vector<double> selected_scores = std::vector<double>(chromosome_indices.size());
-    for (int i = 0; i < selected_scores.size(); ++i)
+    for (std::size_t i = 0; i < selected_scores.size(); ++i)
     {
         selected_scores[i] = _scores[chromosome_indices[i]];
     }
@@ -104,7 +105,7 @@ std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::crossover(std::vec
     std::mt19937 number_generator(std::random_device{}());
     std::uniform_int_distribution<> int_dist(0, population[0].size()-1);
 
-    for (int i = 0; i < population.size()/2; ++i)
+    for (std::size_t i = 0; i < population.size()/2; ++i)
     {
         double probability = real_dist(probability_generator);
         if (probability < _crossover_probability)
@@ -129,7 +130,7 @@ std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::mutate(std::vector
 
     std::mt19937 mutation_generator(std::random_device{}());
 
-    for (int i = 0; i < population.size(); ++i)
+    for (std::size_t i = 0; i < population.size(); ++i)
     {
         double probability = real_dist(probability_generator);
         if (probability < _mutation_probability)
