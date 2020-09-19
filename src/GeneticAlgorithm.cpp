@@ -41,8 +41,8 @@ std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::generate_initial_s
     std::vector<std::vector<double> > initial_solutions(_pop_number, std::vector<double>(num_parameters, 0));
     std::mt19937 number_generator(std::random_device{}());
     for (int parameter_index = 0; parameter_index < num_parameters; ++parameter_index) {
+        std::uniform_real_distribution<> dist(constraints[parameter_index][0], constraints[parameter_index][1]);
         for (int population_index = 0; population_index < _pop_number; ++population_index) {
-            std::uniform_real_distribution<> dist(constraints[parameter_index][0], constraints[parameter_index][1]);
             initial_solutions[population_index][parameter_index] = dist(number_generator);
         }
     }
@@ -69,20 +69,15 @@ std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::select_parents()
     return parents;
 }
 
-std::vector<int> EvoAlgos::GeneticAlgorithm::_pick_random_chromosome(int k)
+std::vector<int> EvoAlgos::GeneticAlgorithm::_pick_random_chromosome(int number_to_pick)
 {
-    std::vector<int> all_indices(_pop_number);
-    for (std::size_t i = 0; i < all_indices.size(); ++i)
-        all_indices[i] = i;
-    
-    std::random_device rd;
-    std::mt19937 prng(rd());
-    std::shuffle(all_indices.begin(), all_indices.end(), prng);
-    auto first = all_indices.cbegin();
-	auto last = all_indices.cbegin() + k + 1;
-
-    std::vector<int> random_indices(first, last);
-	return random_indices;
+    // Picks random chromosomes indices, allows for duplicates to be chosen
+    std::mt19937 number_generator(std::random_device{}());
+    std::uniform_int_distribution<> int_dist(0, _pop_number-1);
+    std::vector<int> random_indices(number_to_pick);
+    for (int i = 0; i < number_to_pick; ++i)
+        random_indices[i] = int_dist(number_generator);
+    return random_indices;
 }
 
 int EvoAlgos::GeneticAlgorithm::_tournament_selection(std::vector<int> chromosome_indices)
