@@ -7,5 +7,4 @@ GeneticAlgorithm.cpp
 OptimizationProblem.hpp 
 GeneticAlgorithm.hpp)
 
-#target_include_directories(EvolutionaryAlgorithms PUBLIC src)
 target_link_libraries(EvolutionaryAlgorithms PUBLIC EvoAlgo)
