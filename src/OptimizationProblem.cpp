@@ -4,11 +4,11 @@
 
 #include "OptimizationProblem.hpp"
 
-double EvoAlgos::OptimizationProblem::objective_function(std::vector<double> inputs)
+double EvoAlgos::OptimizationProblem::objective_function(std::vector<double>& inputs)
 {
   // Rosenbrock function
-  double& x = inputs[0];
-  double& y = inputs[1];
+  double x = inputs[0];
+  double y = inputs[1];
   return pow((a-x), 2) + b*pow((y-pow(x, 2)), 2);
 }
 

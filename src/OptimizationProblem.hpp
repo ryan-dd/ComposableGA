@@ -11,7 +11,7 @@ namespace EvoAlgos
     public:
       OptimizationProblem(int number_of_parameters, std::vector<std::vector<double> > constraints);
       virtual ~OptimizationProblem();
-      double objective_function(std::vector<double>);
+      double objective_function(std::vector<double>&);
       int get_num_parameters();
       std::vector<std::vector<double> >& get_constraints();
       

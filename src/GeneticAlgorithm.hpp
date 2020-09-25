@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "OptimizationProblem.hpp"
+#include <random>
 
 namespace EvoAlgos{
     class GeneticAlgorithm
@@ -15,6 +16,9 @@ namespace EvoAlgos{
         int _k_tournament_selection;
         double _crossover_probability;
         double _mutation_probability;
+        std::mt19937 number_generator;
+        std::uniform_int_distribution<> int_dist;
+        std::vector<std::vector<double>> parents;
 
         std::vector<int> _pick_random_chromosome(int k);
         int _tournament_selection(std::vector<int> chromosome_indices);
@@ -26,10 +30,10 @@ namespace EvoAlgos{
         std::vector<double> run(EvoAlgos::OptimizationProblem problem);
 
         std::vector<std::vector<double> > generate_initial_solutions(EvoAlgos::OptimizationProblem problem);
-        void evaluate(std::vector<std::vector<double> > solution_population, EvoAlgos::OptimizationProblem problem);
-        std::vector<std::vector<double> > select_parents();
-        std::vector<std::vector<double> > crossover(std::vector<std::vector<double> > population);
-        std::vector<std::vector<double> > mutate(std::vector<std::vector<double> > population, EvoAlgos::OptimizationProblem problem);
+        void evaluate(std::vector<std::vector<double>> solution_population, EvoAlgos::OptimizationProblem problem);
+        void select_parents();
+        void crossover();
+        void mutate(EvoAlgos::OptimizationProblem problem);
     };
     
 }
