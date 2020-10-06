@@ -16,12 +16,16 @@ namespace EvoAlgos{
         int _k_tournament_selection;
         double _crossover_probability;
         double _mutation_probability;
+        std::vector<int> random_indices;
+        std::vector<double>selected_scores;
         std::mt19937 number_generator;
-        std::uniform_int_distribution<> int_dist;
+        std::uniform_int_distribution<> int_dist_chromosome;
+        std::uniform_int_distribution<> int_dist_population;
+        std::uniform_real_distribution<> real_dist;
         std::vector<std::vector<double>> parents;
 
-        std::vector<int> _pick_random_chromosome(int k);
-        int _tournament_selection(std::vector<int> chromosome_indices);
+        void _pick_random_chromosome(int k);
+        int _tournament_selection();
         std::vector<double> _get_best_chromosome();
 
     public:
