@@ -18,7 +18,7 @@ namespace EvoAlgos{
         double _mutation_probability;
         std::vector<int> random_indices;
         std::vector<double>selected_scores;
-        std::mt19937 number_generator;
+        std::mt19937_64 number_generator;
         std::uniform_int_distribution<> int_dist_chromosome;
         std::uniform_int_distribution<> int_dist_population;
         std::uniform_real_distribution<> real_dist;
@@ -34,7 +34,7 @@ namespace EvoAlgos{
         std::vector<double> run(EvoAlgos::OptimizationProblem problem);
 
         std::vector<std::vector<double> > generate_initial_solutions(EvoAlgos::OptimizationProblem problem);
-        void evaluate(std::vector<std::vector<double>> solution_population, EvoAlgos::OptimizationProblem problem);
+        void evaluate(std::vector<std::vector<double>>& solution_population, EvoAlgos::OptimizationProblem problem);
         void select_parents();
         void crossover();
         void mutate(EvoAlgos::OptimizationProblem problem);

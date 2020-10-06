@@ -13,7 +13,7 @@ EvoAlgos::GeneticAlgorithm::GeneticAlgorithm(int pop_number, int max_iterations,
     this->_crossover_probability = crossover_probability;
     this->_mutation_probability = mutation_probability;
     _scores = std::vector<double> (pop_number, 0);
-    number_generator = std::mt19937 (std::random_device{}());
+    number_generator = std::mt19937_64 (std::random_device{}());
     parents = std::vector<std::vector<double>> (_pop_number);
     random_indices = std::vector<int> (k_tournament_selection);
     selected_scores = std::vector<double>(k_tournament_selection);
@@ -37,6 +37,7 @@ std::vector<double> EvoAlgos::GeneticAlgorithm::run(EvoAlgos::OptimizationProble
         crossover();
         mutate(problem);
         _current_population = parents;
+        // use pool allocator for speedup
     }
 
     return _get_best_chromosome();
@@ -57,7 +58,7 @@ std::vector<std::vector<double> > EvoAlgos::GeneticAlgorithm::generate_initial_s
     return initial_solutions;
 }
 
-void EvoAlgos::GeneticAlgorithm::evaluate(std::vector<std::vector<double> > solution_population, EvoAlgos::OptimizationProblem problem)
+void EvoAlgos::GeneticAlgorithm::evaluate(std::vector<std::vector<double>>& solution_population, EvoAlgos::OptimizationProblem problem)
 {
     for (std::size_t i = 0; i < solution_population.size(); ++i)
     {
