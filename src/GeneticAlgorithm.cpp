@@ -37,7 +37,6 @@ std::vector<double> EvoAlgos::GeneticAlgorithm::run(EvoAlgos::OptimizationProble
         crossover();
         mutate(problem);
         _current_population = parents;
-        // use pool allocator for speedup
     }
 
     return _get_best_chromosome();
