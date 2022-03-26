@@ -1,2 +1,4 @@
-# evolutionary-algorithms
-A C++ library for evolutionary algorithms. Genetic Algorithm and Particle swarm.
+# Composable GA
+A C++ library for genetic algorithm using the entity component system (ECS) to represent parameters.
+
+Assumes parameters are independent and that changing the value of one parameter will not invalidate another parameter (for now).
