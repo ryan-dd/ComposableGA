@@ -35,7 +35,10 @@ public:
     };
 
     int getResult(){
-        return std::distance(scores.begin(),std::max_element(scores.begin(), scores.end())); // Max index
+        return std::distance(
+            scores.begin(), 
+            std::max_element(scores.begin(), scores.end())
+        );
     };
 
 private:

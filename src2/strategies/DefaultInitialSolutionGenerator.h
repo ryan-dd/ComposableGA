@@ -36,6 +36,7 @@ public:
                 auto gene = registry.create();
                 registry.emplace<entt::entity>(gene, parameters[j]);
                 registry.get<ParameterFunctions>(parameters[j]).initializer(gene);
+                // TODO Init ref count 1
                 chromosomes.at(i).push_back(gene);
             }
         }

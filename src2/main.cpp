@@ -7,7 +7,7 @@
 #include "strategies/DefaultInitialSolutionGenerator.h"
 #include "strategies/DefaultMutator.h"
 #include "strategies/DefaultEvaluator.h"
-#include "strategies/DefaultParentSelector.h"
+#include "strategies/K_TournamentParentSelector.h"
 #include <GA.h>
 
 int main()
@@ -64,17 +64,20 @@ int main()
         return real_dist(number_generator) < mutationProbability;
     };
 
-    DefaultMutator mutator(
-        {.mutateCondition = mutateCondition,
-        .registry = registry}
-    );
+    DefaultMutator mutator({
+        .mutateCondition = mutateCondition,
+        .registry = registry
+        });
 
-    DefaultParentSelector selector; 
+    K_TournamentParentSelector selector({
+        .k = 6,
+        .numChromosomes = 12
+    });
     DefaultCrossover crossover;
 
     GA<DefaultInitialSolutionGenerator,
         DefaultEvaluator,
-        DefaultParentSelector,
+        K_TournamentParentSelector,
         DefaultCrossover,
         DefaultMutator> ga(generator, evaluator, selector, crossover, mutator);
     ga.runGA();
