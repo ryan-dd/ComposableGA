@@ -12,11 +12,6 @@ struct ParameterFunctions
     GeneratorFunction initializer;
 };
     
-entt::entity addParameter(ParameterFunctions paramFunctions, entt::registry& registry)
-{
-    auto parameter = registry.create();
-    registry.emplace<ParameterFunctions>(parameter, paramFunctions);
-    return parameter;
-}
+entt::entity addParameter(ParameterFunctions paramFunctions, entt::registry& registry);
 
 #endif // PARAMETER_H
