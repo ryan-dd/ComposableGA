@@ -73,7 +73,11 @@ int main()
         .k = 6,
         .numChromosomes = 12
     });
-    DefaultCrossover crossover;
+    
+    DefaultCrossover crossover({
+        .numParams = static_cast<int>(parameters.size()),
+        .crossoverProbability = 0.1
+    });
 
     GA<DefaultInitialSolutionGenerator,
         DefaultEvaluator,

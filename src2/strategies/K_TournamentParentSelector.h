@@ -28,6 +28,7 @@ public:
             pick_random_chromosomes(inputs.k);
             int parent_index = tournament_selection(scores);
             population[i] = oldPopulation[parent_index];
+            
             for (auto gene: population[i])
             {
                 // registry.get<int>(gene)++; add ref count
