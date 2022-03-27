@@ -16,7 +16,7 @@ int main()
     // Initialize ECS registry
     entt::registry registry;
     
-    // Initialize Mutator or initialization function for parameters of type double
+    // Initialize mutator or initialization function for parameters of type double
     std::mt19937 number_generator(std::random_device{}());
     std::uniform_real_distribution<> dist(-10, 10);
     auto doubleGeneratorFunction = [number_generator, dist, &registry](auto entity) mutable
@@ -29,9 +29,11 @@ int main()
         {.mutator = doubleGeneratorFunction,
         .initializer = doubleGeneratorFunction},
         registry));
-    parameters.push_back(addParameter(
-        {.mutator = doubleGeneratorFunction,
-        .initializer = [&registry](auto entity){registry.emplace<double>(entity, 7.3);}},
+
+    parameters.push_back(addParameter({
+        .mutator = doubleGeneratorFunction,
+        .initializer = [&registry](auto entity){registry.emplace<double>(entity, 7.3);}
+        },
         registry));
 
     // Initialize objective function
