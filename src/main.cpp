@@ -11,6 +11,8 @@
 #include <GA.h>
 #include <Parameter.h>
 
+#include <iostream>
+
 int main()
 {
     // Initialize ECS registry
@@ -44,13 +46,13 @@ int main()
         // Rosenbrock function
         auto x = registry.get<double>(chromosome[0]);
         auto y = registry.get<double>(chromosome[1]);
-        return std::pow((a - x), 2) + b*std::pow((y - std::pow(x, 2)), 2);
+        return -(std::pow((a - x), 2) + b*std::pow((y - std::pow(x, 2)), 2));
     };
 
     // Configure GA
-    int numChromosomes = 12;
+    int numChromosomes = 100;
     DefaultEvaluator evaluator({
-        .numberOfIterations = 100,
+        .numberOfIterations = 4000,
         .objectiveFunction = objFunction,
         .numChromosomes = numChromosomes
     }); 
@@ -61,7 +63,7 @@ int main()
         .parameters = parameters});
 
     auto real_dist = std::uniform_real_distribution<>(0, 1);
-    double mutationProbability = 0.01;
+    double mutationProbability = 0.05;
     DefaultMutator mutator({
         .mutateCondition = [real_dist, number_generator, mutationProbability]() mutable {
             return real_dist(number_generator) < mutationProbability;
@@ -70,8 +72,9 @@ int main()
         });
 
     K_TournamentParentSelector selector({
-        .k = 6,
-        .numChromosomes = numChromosomes
+        .k = 20,
+        .numChromosomes = numChromosomes,
+        .registry = registry
     });
 
     DefaultCrossover crossover({
@@ -85,5 +88,6 @@ int main()
         DefaultCrossover,
         DefaultMutator> ga(generator, evaluator, selector, crossover, mutator);
     
-    ga.runGA();
+    auto bestChromosome = ga.runGA();
+    std::cerr << "Score: " << objFunction(bestChromosome);
 }

@@ -1,30 +1,47 @@
 #include "K_TournamentParentSelector.h"
+#include <iostream>
 
 K_TournamentParentSelector::K_TournamentParentSelector(K_TournamentParentSelectorInputs selectorInputs): 
     inputs(selectorInputs),
     number_generator(std::random_device{}()),
-    intDistributionForChromosome(0, selectorInputs.numChromosomes)
+    intDistributionForChromosome(0, selectorInputs.numChromosomes-1)
 {
     randomIndices.resize(inputs.k, 0);
+    selectedScores.resize(inputs.k, 0);
 }
 
 // TODO change double to comparable concept
 void K_TournamentParentSelector::selectParents(std::vector<std::vector<entt::entity>>& population, const std::vector<double>& scores)
 {
+    auto& registry = inputs.registry;
     std::vector<std::vector<entt::entity>> oldPopulation = population;
+    
+    std::vector<int> numTimesChromosomeUsed(population.size(), 0);
 
     for (auto i = 0u; i < population.size(); ++i)
     {
         pick_random_chromosomes(inputs.k);
         int parent_index = tournament_selection(scores);
         population[i] = oldPopulation[parent_index];
+        ++numTimesChromosomeUsed[parent_index];
         
-        for (auto gene: population[i])
-        {
-            // registry.get<int>(gene)++; add ref count
-        }
+        // for (auto gene: population[i])
+        // {
+        //     registry.get<int>(gene)++; // add ref count
+        // }
     }
-};
+
+    // for(auto i{0u}; i < numTimesChromosomeUsed.size(); ++i)
+    // {
+    //     if(numTimesChromosomeUsed[i] == 0)
+    //     {
+    //         for(auto gene: oldPopulation[i])
+    //         {   
+    //             registry.destroy(gene);
+    //         }
+    //     }
+    // }
+}
 
 void K_TournamentParentSelector::pick_random_chromosomes(int number_to_pick)
 {

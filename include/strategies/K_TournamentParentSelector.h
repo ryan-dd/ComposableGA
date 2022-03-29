@@ -12,6 +12,7 @@ public:
     {   
         int k = 0;
         int numChromosomes = 0;
+        entt::registry& registry;
     };
 
     K_TournamentParentSelector(K_TournamentParentSelectorInputs selectorInputs);

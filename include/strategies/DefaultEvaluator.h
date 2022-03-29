@@ -19,12 +19,13 @@ public:
     DefaultEvaluator(DefaultEvaluatorInputs evaluatorInputs);
     bool continueIterating(std::vector<std::vector<entt::entity>>& chromosomes);
     std::vector<double> getScores(std::vector<std::vector<entt::entity>> input);
-    int getResult();
+    std::vector<entt::entity> getResult();
 
 private:
     DefaultEvaluatorInputs inputs;
     int currIterations = 0;
     std::vector<double> scores;
+    std::vector<entt::entity> bestChromosome;
 };
 
 #endif // DEFAULTEVALUATOR_H

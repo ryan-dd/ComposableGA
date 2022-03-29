@@ -18,12 +18,14 @@ std::vector<double> DefaultEvaluator::getScores(std::vector<std::vector<entt::en
         scores.at(i) = inputs.objectiveFunction(input.at(i));
     }
 
+    bestChromosome = input[std::distance(
+        scores.begin(), 
+        std::max_element(scores.begin(), scores.end())
+    )];
+
     return scores;
 }
 
-int DefaultEvaluator::getResult(){
-    return std::distance(
-        scores.begin(), 
-        std::max_element(scores.begin(), scores.end())
-    );
+std::vector<entt::entity> DefaultEvaluator::getResult(){
+    return bestChromosome;
 }
