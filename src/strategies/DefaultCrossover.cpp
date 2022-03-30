@@ -9,7 +9,7 @@ DefaultCrossover::DefaultCrossover(DefaultCrossoverParams inputParamaters):
 
 }
 
-void DefaultCrossover::crossover(std::vector<std::vector<entt::entity>> input)
+void DefaultCrossover::crossover(std::vector<std::vector<entt::entity>>& input)
 {
     for (auto i = 0u; i < input.size()/2; ++i)
     {

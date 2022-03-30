@@ -5,7 +5,6 @@
 
 #include <functional>
 #include <vector>
-
 class DefaultEvaluator
 {
 public:
@@ -18,7 +17,7 @@ public:
 
     DefaultEvaluator(DefaultEvaluatorInputs evaluatorInputs);
     bool continueIterating(std::vector<std::vector<entt::entity>>& chromosomes);
-    std::vector<double> getScores(std::vector<std::vector<entt::entity>> input);
+    const std::vector<double>& getScores();
     std::vector<entt::entity> getResult();
 
 private:

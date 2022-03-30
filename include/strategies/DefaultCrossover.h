@@ -15,7 +15,7 @@ public:
     };
 
     DefaultCrossover(DefaultCrossoverParams inputParamaters); 
-    void crossover(std::vector<std::vector<entt::entity>> input);
+    void crossover(std::vector<std::vector<entt::entity>>& input);
 
 private:
     DefaultCrossoverParams inputParams;

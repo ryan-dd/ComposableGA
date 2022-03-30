@@ -10,37 +10,39 @@ K_TournamentParentSelector::K_TournamentParentSelector(K_TournamentParentSelecto
     selectedScores.resize(inputs.k, 0);
 }
 
-// TODO change double to comparable concept
 void K_TournamentParentSelector::selectParents(std::vector<std::vector<entt::entity>>& population, const std::vector<double>& scores)
 {
     auto& registry = inputs.registry;
     std::vector<std::vector<entt::entity>> oldPopulation = population;
-    
-    std::vector<int> numTimesChromosomeUsed(population.size(), 0);
+
+    // reset refCount for genes
+    auto startView = registry.view<entt::entity>();
+    for(auto gene: startView) 
+    {
+        registry.replace<int>(gene, 0);
+    }
 
     for (auto i = 0u; i < population.size(); ++i)
     {
         pick_random_chromosomes(inputs.k);
         int parent_index = tournament_selection(scores);
         population[i] = oldPopulation[parent_index];
-        ++numTimesChromosomeUsed[parent_index];
         
-        // for (auto gene: population[i])
-        // {
-        //     registry.get<int>(gene)++; // add ref count
-        // }
+        for (auto gene: population[i])
+        {
+            registry.get<int>(gene)++; // add ref count
+        }
     }
 
-    // for(auto i{0u}; i < numTimesChromosomeUsed.size(); ++i)
-    // {
-    //     if(numTimesChromosomeUsed[i] == 0)
-    //     {
-    //         for(auto gene: oldPopulation[i])
-    //         {   
-    //             registry.destroy(gene);
-    //         }
-    //     }
-    // }
+    // Clean up unused genes    
+    auto endView = registry.view<entt::entity>();
+    for(auto gene: endView)
+    {
+        if (registry.get<int>(gene) == 0)
+        {
+            registry.destroy(gene); 
+        }
+    }
 }
 
 void K_TournamentParentSelector::pick_random_chromosomes(int number_to_pick)

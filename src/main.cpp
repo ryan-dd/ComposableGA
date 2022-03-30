@@ -1,16 +1,16 @@
-#include <entt/entt.hpp>
-#include <functional>
-#include <random>
-#include <vector>
-
 #include "strategies/DefaultCrossover.h"
 #include "strategies/DefaultInitialSolutionGenerator.h"
 #include "strategies/DefaultMutator.h"
 #include "strategies/DefaultEvaluator.h"
 #include "strategies/K_TournamentParentSelector.h"
-#include <GA.h>
-#include <Parameter.h>
+#include "GA.h"
+#include "Parameter.h"
 
+#include <entt/entt.hpp>
+
+#include <functional>
+#include <random>
+#include <vector>
 #include <iostream>
 
 int main()
@@ -27,20 +27,23 @@ int main()
     };
 
     std::vector<entt::entity> parameters;
-    parameters.push_back(addParameter(
-        {.mutator = doubleGeneratorFunction,
-        .initializer = doubleGeneratorFunction},
-        registry));
-
     parameters.push_back(addParameter({
         .mutator = doubleGeneratorFunction,
-        .initializer = [&registry](auto entity){registry.emplace<double>(entity, 7.3);}
+        .initializer = doubleGeneratorFunction
         },
         registry));
 
+    double constantInitialValue = 9;
+    parameters.push_back(addParameter({
+        .mutator = doubleGeneratorFunction,
+        .initializer = [&registry, constantInitialValue](auto entity){
+            registry.emplace<double>(entity, constantInitialValue);
+        }},
+        registry));
+
     // Initialize objective function
-    int a = 1;
-    int b = 100;
+    double a = 1;
+    double b = 100;
     auto objFunction = [&registry, a, b](std::vector<entt::entity>& chromosome)
     {
         // Rosenbrock function
@@ -50,11 +53,11 @@ int main()
     };
 
     // Configure GA
-    int numChromosomes = 100;
+    int numChromosomes = 10000;
     DefaultEvaluator evaluator({
-        .numberOfIterations = 4000,
+        .numberOfIterations = 100,
         .objectiveFunction = objFunction,
-        .numChromosomes = numChromosomes
+        .numChromosomes = numChromosomes,
     }); 
 
     DefaultInitialSolutionGenerator generator(
@@ -63,7 +66,7 @@ int main()
         .parameters = parameters});
 
     auto real_dist = std::uniform_real_distribution<>(0, 1);
-    double mutationProbability = 0.05;
+    double mutationProbability = 0.08;
     DefaultMutator mutator({
         .mutateCondition = [real_dist, number_generator, mutationProbability]() mutable {
             return real_dist(number_generator) < mutationProbability;
@@ -72,14 +75,14 @@ int main()
         });
 
     K_TournamentParentSelector selector({
-        .k = 20,
+        .k = 5,
         .numChromosomes = numChromosomes,
         .registry = registry
     });
 
     DefaultCrossover crossover({
         .numParams = static_cast<int>(parameters.size()),
-        .crossoverProbability = 0.1
+        .crossoverProbability = 0.05
     });
 
     GA<DefaultInitialSolutionGenerator,
@@ -89,5 +92,7 @@ int main()
         DefaultMutator> ga(generator, evaluator, selector, crossover, mutator);
     
     auto bestChromosome = ga.runGA();
-    std::cerr << "Score: " << objFunction(bestChromosome);
+    std::cout << "Param 1" << registry.get<double>(bestChromosome.at(0)) << '\n';
+    std::cout << "Param 2" << registry.get<double>(bestChromosome.at(1)) << '\n';
+    std::cout << "Score: " << objFunction(bestChromosome);
 }

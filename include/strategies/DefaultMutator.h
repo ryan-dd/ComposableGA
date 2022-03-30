@@ -16,7 +16,7 @@ public:
     };
 
     DefaultMutator(MutatatorInputs inputs): inputs(inputs){}
-    void mutate(std::vector<std::vector<entt::entity>> parents);
+    void mutate(std::vector<std::vector<entt::entity>>& parents);
 
 private:
     MutatatorInputs inputs;

@@ -1,6 +1,5 @@
 #ifndef GA_H
 #define GA_H
-
 template<
     typename InitialSolutionGenerator,
     typename Evaluator,
@@ -28,7 +27,7 @@ public:
         
         while (evaluator.continueIterating(currentPopulation))
         {
-            selector.selectParents(currentPopulation, evaluator.getScores(currentPopulation));
+            selector.selectParents(currentPopulation, evaluator.getScores());
             crossover.crossover(currentPopulation);
             mutator.mutate(currentPopulation);
         }

@@ -1,6 +1,6 @@
 #include "DefaultMutator.h"
 
-void DefaultMutator::mutate(std::vector<std::vector<entt::entity>> parents)
+void DefaultMutator::mutate(std::vector<std::vector<entt::entity>>& parents)
 {
     auto& registry = inputs.registry;
     for (auto& chromosome: parents)
@@ -21,6 +21,4 @@ void DefaultMutator::mutate(std::vector<std::vector<entt::entity>> parents)
             }
         }
     }
-
-    // TODO Clean up vars with ref count 0
 }
