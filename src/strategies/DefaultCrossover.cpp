@@ -2,7 +2,7 @@
 
 DefaultCrossover::DefaultCrossover(DefaultCrossoverParams inputParamaters): 
         inputParams(inputParamaters),
-        intDistNumParams(0, inputParamaters.numParams - 1),
+        intDistNumParams(0, inputParamaters.numParams),
         realDistribution(0, 1),
         numberGenerator(std::random_device{}())
 {
