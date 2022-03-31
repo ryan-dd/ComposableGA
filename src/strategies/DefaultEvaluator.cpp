@@ -1,7 +1,7 @@
 #include "DefaultEvaluator.h"
 #include <iostream>
 
-DefaultEvaluator::DefaultEvaluator(DefaultEvaluatorInputs evaluatorInputs): 
+DefaultEvaluator::DefaultEvaluator(const DefaultEvaluatorInputs& evaluatorInputs): 
         inputs(evaluatorInputs)
 {
     scores.resize(inputs.numChromosomes, 0);
@@ -9,7 +9,7 @@ DefaultEvaluator::DefaultEvaluator(DefaultEvaluatorInputs evaluatorInputs):
 
 bool DefaultEvaluator::continueIterating(std::vector<std::vector<entt::entity>>& chromosomes)
 {
-    for(auto i = 0u; i < chromosomes.size(); ++i)
+    for(auto i = 0U; i < chromosomes.size(); ++i)
     {
         scores.at(i) = inputs.objectiveFunction(chromosomes.at(i));
     }
@@ -22,11 +22,12 @@ bool DefaultEvaluator::continueIterating(std::vector<std::vector<entt::entity>>&
     return currIterations++ < inputs.numberOfIterations;
 }
 
-const std::vector<double>& DefaultEvaluator::getScores()
+const std::vector<double>& DefaultEvaluator::getScores() const
 {
     return scores;
 }
 
-std::vector<entt::entity> DefaultEvaluator::getResult(){
+std::vector<entt::entity> DefaultEvaluator::getResult() const
+{
     return bestChromosome;
 }

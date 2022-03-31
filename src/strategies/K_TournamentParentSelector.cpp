@@ -22,13 +22,13 @@ void K_TournamentParentSelector::selectParents(std::vector<std::vector<entt::ent
         registry.replace<int>(gene, 0);
     }
 
-    for (auto i = 0u; i < population.size(); ++i)
+    for (auto& chromosome: population)
     {
         pick_random_chromosomes(inputs.k);
         int parent_index = tournament_selection(scores);
-        population[i] = oldPopulation[parent_index];
+        chromosome = oldPopulation[parent_index];
         
-        for (auto gene: population[i])
+        for (auto gene: chromosome)
         {
             registry.get<int>(gene)++; // add ref count
         }

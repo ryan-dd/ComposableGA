@@ -5,7 +5,7 @@ void DefaultMutator::mutate(std::vector<std::vector<entt::entity>>& parents)
     auto& registry = inputs.registry;
     for (auto& chromosome: parents)
     {
-        for (auto i{0u}; i < chromosome.size(); ++i)
+        for (auto i{0U}; i < chromosome.size(); ++i)
         {
             if (inputs.mutateCondition())
             {

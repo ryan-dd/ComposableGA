@@ -17,7 +17,7 @@ public:
         std::vector<entt::entity> parameters;
     };
 
-    DefaultInitialSolutionGenerator(ChromosomeGeneratorInputs inputs): inputs(inputs){}
+    explicit DefaultInitialSolutionGenerator(const ChromosomeGeneratorInputs& inputs): inputs(inputs){}
     std::vector<std::vector<entt::entity>> generate();
 
 private:

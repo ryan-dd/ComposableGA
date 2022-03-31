@@ -10,11 +10,11 @@ template<
 class GA
 {
 public:
-    GA(InitialSolutionGenerator generator,
-        Evaluator evaluator,
-        ParentSelector selector,
-        Crossover crossover,
-        Mutator mutator):
+    GA(const InitialSolutionGenerator& generator,
+        const Evaluator& evaluator,
+        const ParentSelector& selector,
+        const Crossover& crossover,
+        const Mutator& mutator):
     generator(generator),
     evaluator(evaluator),
     selector(selector),

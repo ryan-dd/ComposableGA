@@ -5,6 +5,5 @@ entt::entity addParameter(ParameterFunctions paramFunctions, entt::registry& reg
 {
     auto parameter = registry.create();
     registry.emplace<ParameterFunctions>(parameter, paramFunctions);
-    
     return parameter;
 }

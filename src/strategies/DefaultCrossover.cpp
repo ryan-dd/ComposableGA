@@ -11,7 +11,7 @@ DefaultCrossover::DefaultCrossover(DefaultCrossoverParams inputParamaters):
 
 void DefaultCrossover::crossover(std::vector<std::vector<entt::entity>>& input)
 {
-    for (auto i = 0u; i < input.size()/2; ++i)
+    for (auto i = 0U; i < input.size()/2; ++i)
     {
         double probability = realDistribution(numberGenerator);
 

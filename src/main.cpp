@@ -33,7 +33,7 @@ int main()
         },
         registry));
 
-    double constantInitialValue = 9;
+    constexpr double constantInitialValue = 9;
     parameters.push_back(addParameter({
         .mutator = doubleGeneratorFunction,
         .initializer = [&registry, constantInitialValue](auto entity){
@@ -42,8 +42,8 @@ int main()
         registry));
 
     // Initialize objective function
-    double a = 1;
-    double b = 100;
+    constexpr double a = 1;
+    constexpr double b = 100;
     auto objFunction = [&registry, a, b](std::vector<entt::entity>& chromosome)
     {
         // Rosenbrock function
@@ -53,10 +53,10 @@ int main()
     };
 
     // Configure GA
-    int numChromosomes = 10000;
+    constexpr int numChromosomes = 10000;
     DefaultEvaluator evaluator({
-        .numberOfIterations = 100,
         .objectiveFunction = objFunction,
+        .numberOfIterations = 100,
         .numChromosomes = numChromosomes,
     }); 
 
@@ -66,7 +66,7 @@ int main()
         .parameters = parameters});
 
     auto real_dist = std::uniform_real_distribution<>(0, 1);
-    double mutationProbability = 0.08;
+    constexpr double mutationProbability = 0.08;
     DefaultMutator mutator({
         .mutateCondition = [real_dist, number_generator, mutationProbability]() mutable {
             return real_dist(number_generator) < mutationProbability;

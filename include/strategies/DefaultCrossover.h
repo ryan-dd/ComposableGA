@@ -1,9 +1,10 @@
 #ifndef DEFAULT_CROSSOVER_H
 #define DEFAULT_CROSSOVER_H
 
+#include <entt/entt.hpp>
+
 #include <random>
 #include <vector>
-#include <entt/entt.hpp>
 
 class DefaultCrossover
 {
@@ -14,7 +15,7 @@ public:
         double crossoverProbability;
     };
 
-    DefaultCrossover(DefaultCrossoverParams inputParamaters); 
+    explicit DefaultCrossover(DefaultCrossoverParams inputParamaters); 
     void crossover(std::vector<std::vector<entt::entity>>& input);
 
 private:

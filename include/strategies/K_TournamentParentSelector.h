@@ -15,7 +15,7 @@ public:
         entt::registry& registry;
     };
 
-    K_TournamentParentSelector(K_TournamentParentSelectorInputs selectorInputs);
+    explicit K_TournamentParentSelector(K_TournamentParentSelectorInputs selectorInputs);
     void selectParents(std::vector<std::vector<entt::entity>>& population, const std::vector<double>& scores);
     void pick_random_chromosomes(int number_to_pick);
     int tournament_selection(const std::vector<double>& scores);

@@ -10,7 +10,7 @@ std::vector<std::vector<entt::entity>> DefaultInitialSolutionGenerator::generate
     
     for (auto i = 0; i < inputs.numChromosomes; ++i)
     {
-        for (auto j = 0u; j < parameters.size(); ++j)
+        for (auto j{0U}; j < parameters.size(); ++j)
         {
             auto gene = registry.create();
             registry.emplace<entt::entity>(gene, parameters[j]);
