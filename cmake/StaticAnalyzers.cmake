@@ -7,6 +7,7 @@ if(ENABLE_CPPCHECK)
         set(CMAKE_CXX_CPPCHECK ${CPPCHECK} 
             --enable=all
             --inconclusive
+            --std=c++20
             --suppress=unusedFunction
             --suppress=unmatchedSuppression
             --suppress=missingIncludeSystem)
