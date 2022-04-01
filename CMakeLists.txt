@@ -11,9 +11,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 include(cmake/StaticAnalyzers.cmake)
 
-set(PROJECT_WARNINGS "-Wall -Wshadow -Wnon-virtual-dtor -pedantic")
+set(PROJECT_WARNINGS -Wall -Wshadow -Wnon-virtual-dtor -pedantic)
 add_subdirectory(src)
-
-# enable_testing()
-# add_subdirectory(test)
+add_subdirectory(examples)
 

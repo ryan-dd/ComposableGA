@@ -1,0 +1,5 @@
+add_executable(MixedParamTypes MixedParamTypes.cpp)
+target_link_libraries(MixedParamTypes PRIVATE ComposableGAlib)
+
+add_executable(Rosenbrock Rosenbrock.cpp)
+target_link_libraries(Rosenbrock PRIVATE ComposableGAlib)
