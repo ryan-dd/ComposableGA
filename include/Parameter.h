@@ -14,5 +14,6 @@ struct ParameterFunctions
 };
 
 entt::entity addParameter(ParameterFunctions paramFunctions, entt::registry& registry);
+entt::entity addParameter(GeneratorFunction mutatorAndInitializerfunction, entt::registry& registry);
 
 #endif // PARAMETER_H
