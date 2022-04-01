@@ -1,6 +1,5 @@
 [requires]
 entt/3.9.0
-gtest/1.11.0
 
 [generators]
 cmake
