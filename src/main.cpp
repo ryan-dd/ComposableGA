@@ -95,4 +95,6 @@ int main()
     std::cout << "Param 1" << registry.get<double>(bestChromosome.at(0)) << '\n';
     std::cout << "Param 2" << registry.get<double>(bestChromosome.at(1)) << '\n';
     std::cout << "Score: " << objFunction(bestChromosome);
+
+    return 0;
 }

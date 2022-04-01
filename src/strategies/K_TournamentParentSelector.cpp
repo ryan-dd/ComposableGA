@@ -56,7 +56,7 @@ void K_TournamentParentSelector::pick_random_chromosomes(int number_to_pick)
 
 int K_TournamentParentSelector::tournament_selection(const std::vector<double>& scores)
 {
-    for (auto i = 0u; i < selectedScores.size(); ++i)
+    for (auto i{0U}; i < selectedScores.size(); ++i)
     {
         selectedScores[i] = scores[randomIndices[i]];
     }
