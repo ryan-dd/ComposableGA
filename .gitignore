@@ -1,5 +1,5 @@
 build/*
 debug/*
 release/*
-.vscode
+.vscode/settings.json
 TODO
