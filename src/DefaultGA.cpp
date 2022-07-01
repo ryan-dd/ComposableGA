@@ -9,6 +9,7 @@ DefaultGA configureDefaultGA(DefaultGA_Params params, entt::registry& registry)
     });
 
     DefaultEvaluator evaluator({
+
         .objectiveFunction = params.objectiveFunction,
         .numberOfIterations = params.numIterations,
         .numChromosomes = params.numChromosomes,
@@ -33,5 +34,5 @@ DefaultGA configureDefaultGA(DefaultGA_Params params, entt::registry& registry)
         .registry = registry
     });
 
-    return DefaultGA(generator, evaluator, selector, crossover, mutator);
+    return {generator, evaluator, selector, crossover, mutator};
 }

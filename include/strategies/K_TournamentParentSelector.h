@@ -26,6 +26,8 @@ private:
     std::uniform_int_distribution<> intDistributionForChromosome;
     std::vector<int> randomIndices;
     std::vector<double> selectedScores;
+    int cleanupFrequency;
+    int iterations = 0;
 };
 
 #endif // K_TOURNAMENT_PARENT_SELECTOR

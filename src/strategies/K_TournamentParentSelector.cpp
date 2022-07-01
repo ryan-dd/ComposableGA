@@ -4,7 +4,8 @@
 K_TournamentParentSelector::K_TournamentParentSelector(K_TournamentParentSelectorInputs selectorInputs): 
     inputs(selectorInputs),
     number_generator(std::random_device{}()),
-    intDistributionForChromosome(0, selectorInputs.numChromosomes-1)
+    intDistributionForChromosome(0, selectorInputs.numChromosomes-1),
+    cleanupFrequency(30)
 {
     randomIndices.resize(inputs.k, 0);
     selectedScores.resize(inputs.k, 0);
@@ -14,35 +15,48 @@ void K_TournamentParentSelector::selectParents(std::vector<std::vector<entt::ent
 {
     auto& registry = inputs.registry;
     std::vector<std::vector<entt::entity>> oldPopulation = population;
+    
+    // When new parents are selected there may be unused genes in the registry, so clean them up periodically
+    ++iterations;
+    bool doCleanup = iterations % cleanupFrequency == 0; 
 
-    // reset refCount for genes
-    auto startView = registry.view<entt::entity>();
-    for(auto gene: startView) 
+    if (doCleanup)
     {
-        registry.replace<int>(gene, 0);
+        auto startView = registry.view<entt::entity>();
+        for (auto gene: startView) 
+        {
+            registry.emplace_or_replace<int>(gene, 0);
+        }
     }
-
+    
     for (auto& chromosome: population)
     {
         pick_random_chromosomes(inputs.k);
         int parent_index = tournament_selection(scores);
         chromosome = oldPopulation[parent_index];
         
-        for (auto gene: chromosome)
+        if(doCleanup)
         {
-            registry.get<int>(gene)++; // add ref count
+          // Count how many times each gene is used
+          for (auto gene: chromosome)
+          {
+              registry.get<int>(gene)++; 
+          }
         }
     }
 
-    // Clean up unused genes    
-    auto endView = registry.view<entt::entity>();
-    for(auto gene: endView)
+    if (doCleanup)
     {
-        if (registry.get<int>(gene) == 0)
+        // Remove genes that are not in use
+        auto endView = registry.view<entt::entity>();
+        for(auto gene: endView)
         {
-            registry.destroy(gene); 
+            if (registry.get<int>(gene) == 0)
+            {
+                registry.destroy(gene); 
+            }
         }
-    }
+    }   
 }
 
 void K_TournamentParentSelector::pick_random_chromosomes(int number_to_pick)

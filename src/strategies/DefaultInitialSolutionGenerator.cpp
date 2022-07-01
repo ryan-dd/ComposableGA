@@ -15,7 +15,6 @@ std::vector<std::vector<entt::entity>> DefaultInitialSolutionGenerator::generate
             auto gene = registry.create();
             registry.emplace<entt::entity>(gene, parameters[j]);
             registry.get<ParameterFunctions>(parameters[j]).initializer(gene);
-            registry.emplace<int>(gene, 1);
             chromosomes.at(i).push_back(gene);
         }
     }
