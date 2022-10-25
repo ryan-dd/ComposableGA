@@ -15,7 +15,7 @@ public:
         int numChromosomes = 0;
     };
 
-    explicit DefaultEvaluator(const DefaultEvaluatorInputs& evaluatorInputs);
+    explicit DefaultEvaluator(DefaultEvaluatorInputs evaluatorInputs);
     bool continueIterating(std::vector<std::vector<entt::entity>>& chromosomes);
     const std::vector<double>& getScores() const;
     std::vector<entt::entity> getResult() const;
