@@ -10,14 +10,18 @@
 
 int main()
 {
-    entt::registry registry;
+    entt::registry registry{};
+
+    // Create a function to initialize and mutate parameters of type double 
     std::mt19937 number_generator(std::random_device{}());
-    std::uniform_real_distribution<> doubleDist(-100, 100);
+    constexpr double minMax{100};
+    std::uniform_real_distribution<> doubleDist(-minMax, minMax);
     auto doubleGeneratorFunction = [number_generator, doubleDist, &registry](auto entity) mutable
     {
         registry.emplace<double>(entity, doubleDist(number_generator));
     };
 
+    // Create function to initialize and mutate parameters of type bool
     std::uniform_real_distribution<> boolDist(0, 1);
     auto boolGeneratorFunction = [number_generator, boolDist, &registry](auto entity) mutable
     {
@@ -25,8 +29,8 @@ int main()
     };
 
     // Initialize parameters for objective function
-    std::vector<entt::entity> parameters;
-    constexpr int numParamSets = 10;
+    std::vector<entt::entity> parameters{};
+    constexpr int numParamSets{10};
 
     for(auto i{0}; i < numParamSets; ++i)
     {
@@ -34,12 +38,13 @@ int main()
         parameters.push_back(addParameter(doubleGeneratorFunction, registry));
     }
 
-    // The bool "activates" the double and makes it a part of the score
+    // Create the objective function. This scores the chromosome based on its fitness.
     auto objFunction = [&registry](std::vector<entt::entity>& chromosome)
     {
-        double score = 0.0;
+        double score{0.0};
         for(auto i{0}; i < numParamSets; ++i)
         {
+            // Setting the bool to true "activates" the double next to it and adds it to the score
             if(registry.get<bool>(chromosome.at(2*i)))
             {
                 score += registry.get<double>(chromosome.at(2*i+1));
@@ -50,7 +55,7 @@ int main()
     };
 
     // Configure GA
-    auto ga = configureDefaultGA({
+    auto ga{configureDefaultGA({
         .objectiveFunction = objFunction,
         .parameters = parameters,
         .numIterations = 100,
@@ -58,16 +63,19 @@ int main()
         .k_numberTournamentSelection = 5,
         .mutationProbability = 0.08,
         .crossoverProbability = 0.05
-    }, registry);
+    }, registry)};
     
-    auto bestChromosome = ga.runGA();
+    auto bestChromosome{ga.runGA()};
+
+    std::cout << "Parameters: bool, double\n";
 
     for(auto i{0}; i < numParamSets; ++i)
     {
-        std::cout << registry.get<bool>(bestChromosome.at(2*i)) << "; ";
+        std::cout << registry.get<bool>(bestChromosome.at(2*i)) << ", ";
         std::cout << registry.get<double>(bestChromosome.at(2*i+1)) << "\n";
     }
 
+    std::cout << "Ideal Score: " << numParamSets*minMax << '\n';
     std::cout << "Score: " << objFunction(bestChromosome);
 
     return 0;
