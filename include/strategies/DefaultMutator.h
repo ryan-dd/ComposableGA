@@ -15,7 +15,7 @@ public:
         entt::registry& registry;
     };
 
-    explicit DefaultMutator(MutatatorInputs inputs): inputs(inputs){}
+    explicit DefaultMutator(MutatatorInputs inputs);
     void mutate(std::vector<std::vector<entt::entity>>& parents);
 
 private:
