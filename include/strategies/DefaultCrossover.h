@@ -19,7 +19,7 @@ public:
     void crossover(std::vector<std::vector<entt::entity>>& input);
 
 private:
-    DefaultCrossoverParams inputParams;
+    const DefaultCrossoverParams inputParams;
     std::uniform_int_distribution<> intDistNumParams;
     std::uniform_real_distribution<> realDistribution;
     std::mt19937_64 numberGenerator;
