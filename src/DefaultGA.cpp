@@ -9,7 +9,6 @@ DefaultGA configureDefaultGA(DefaultGA_Params params, entt::registry& registry)
     });
 
     DefaultEvaluator evaluator({
-
         .objectiveFunction = params.objectiveFunction,
         .numberOfIterations = params.numIterations,
         .numChromosomes = params.numChromosomes,
@@ -26,7 +25,8 @@ DefaultGA configureDefaultGA(DefaultGA_Params params, entt::registry& registry)
         .crossoverProbability = params.crossoverProbability
     });
     
-    auto real_dist = std::uniform_real_distribution<>(0, 1);
+    // Mutation condition is when random number is less than the mutation probability
+    auto real_dist{std::uniform_real_distribution<>(0.0, 1.0)};
     std::mt19937 number_generator(std::random_device{}());
     DefaultMutator mutator({
         .mutateCondition = [real_dist, number_generator, mutationProb = params.mutationProbability]() mutable 
