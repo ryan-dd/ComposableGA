@@ -27,10 +27,10 @@ DefaultGA configureDefaultGA(DefaultGA_Params params, entt::registry& registry)
     
     // Mutation condition is when random number is less than the mutation probability
     auto real_dist{std::uniform_real_distribution<>(0.0, 1.0)};
-    std::mt19937 number_generator(std::random_device{}());
+    std::mt19937 numberGenerator(std::random_device{}());
     DefaultMutator mutator({
-        .mutateCondition = [real_dist, number_generator, mutationProb = params.mutationProbability]() mutable 
-        { return real_dist(number_generator) < mutationProb; },
+        .mutateCondition = [real_dist, numberGenerator, mutationProb = params.mutationProbability]() mutable 
+        { return real_dist(numberGenerator) < mutationProb; },
         .registry = registry
     });
 

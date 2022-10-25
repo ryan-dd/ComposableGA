@@ -3,7 +3,7 @@
 
 K_TournamentParentSelector::K_TournamentParentSelector(K_TournamentParentSelectorInputs selectorInputs): 
     inputs(selectorInputs),
-    number_generator(std::random_device{}()),
+    numberGenerator(std::random_device{}()),
     intDistributionForChromosome(0, selectorInputs.numChromosomes-1),
     cleanupFrequency(30)
 {
@@ -32,8 +32,8 @@ void K_TournamentParentSelector::selectParents(std::vector<std::vector<entt::ent
     
     for (auto& chromosome: population)
     {
-        pick_random_chromosomes(inputs.k);
-        const int parent_index{tournament_selection(scores)};
+        pickRandomChromosomes(inputs.k);
+        const int parent_index{tournamentSelection(scores)};
         chromosome = oldPopulation[parent_index];
         
         if (doCleanup)
@@ -60,16 +60,16 @@ void K_TournamentParentSelector::selectParents(std::vector<std::vector<entt::ent
     }   
 }
 
-void K_TournamentParentSelector::pick_random_chromosomes(int number_to_pick)
+void K_TournamentParentSelector::pickRandomChromosomes(int number_to_pick)
 {
     // Picks random chromosomes indices, allows for duplicates to be chosen
     for (int i = 0; i < number_to_pick; ++i)
     {
-        randomIndices[i] = intDistributionForChromosome(number_generator);
+        randomIndices[i] = intDistributionForChromosome(numberGenerator);
     }
 }
 
-int K_TournamentParentSelector::tournament_selection(const std::vector<double>& scores)
+int K_TournamentParentSelector::tournamentSelection(const std::vector<double>& scores)
 {
     for (auto i{0U}; i < selectedScores.size(); ++i)
     {

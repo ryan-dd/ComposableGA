@@ -13,19 +13,19 @@ int main()
     entt::registry registry{};
 
     // Create a function to initialize and mutate parameters of type double 
-    std::mt19937 number_generator(std::random_device{}());
+    std::mt19937 numberGenerator(std::random_device{}());
     constexpr double minMax{100};
     std::uniform_real_distribution<> doubleDist(-minMax, minMax);
-    auto doubleGeneratorFunction = [number_generator, doubleDist, &registry](auto entity) mutable
+    auto doubleGeneratorFunction = [numberGenerator, doubleDist, &registry](auto entity) mutable
     {
-        registry.emplace<double>(entity, doubleDist(number_generator));
+        registry.emplace<double>(entity, doubleDist(numberGenerator));
     };
 
     // Create function to initialize and mutate parameters of type bool
     std::uniform_real_distribution<> boolDist(0, 1);
-    auto boolGeneratorFunction = [number_generator, boolDist, &registry](auto entity) mutable
+    auto boolGeneratorFunction = [numberGenerator, boolDist, &registry](auto entity) mutable
     {
-        registry.emplace<bool>(entity, boolDist(number_generator));
+        registry.emplace<bool>(entity, boolDist(numberGenerator));
     };
 
     // Initialize parameters for objective function

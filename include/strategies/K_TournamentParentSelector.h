@@ -17,12 +17,12 @@ public:
 
     explicit K_TournamentParentSelector(K_TournamentParentSelectorInputs selectorInputs);
     void selectParents(std::vector<std::vector<entt::entity>>& population, const std::vector<double>& scores);
-    void pick_random_chromosomes(int number_to_pick);
-    int tournament_selection(const std::vector<double>& scores);
+    void pickRandomChromosomes(int number_to_pick);
+    int tournamentSelection(const std::vector<double>& scores);
 
 private:
     K_TournamentParentSelectorInputs inputs;
-    std::mt19937_64 number_generator;
+    std::mt19937_64 numberGenerator;
     std::uniform_int_distribution<> intDistributionForChromosome;
     std::vector<int> randomIndices;
     std::vector<double> selectedScores;

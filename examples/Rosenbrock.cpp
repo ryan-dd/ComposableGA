@@ -14,11 +14,11 @@ int main()
     entt::registry registry{};
     
     // Initialize mutation and initialization functions for parameters of type double
-    std::mt19937 number_generator(std::random_device{}());
+    std::mt19937 numberGenerator(std::random_device{}());
     std::uniform_real_distribution<> dist(-10.0, 10.0);
-    auto doubleGeneratorFunction = [number_generator, dist, &registry](auto entity) mutable
+    auto doubleGeneratorFunction = [numberGenerator, dist, &registry](auto entity) mutable
     {
-        registry.emplace<double>(entity, dist(number_generator));
+        registry.emplace<double>(entity, dist(numberGenerator));
     };
     
     constexpr double constantInitialValue{9.0};
