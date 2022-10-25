@@ -13,29 +13,30 @@ K_TournamentParentSelector::K_TournamentParentSelector(K_TournamentParentSelecto
 
 void K_TournamentParentSelector::selectParents(std::vector<std::vector<entt::entity>>& population, const std::vector<double>& scores)
 {
-    auto& registry = inputs.registry;
-    std::vector<std::vector<entt::entity>> oldPopulation = population;
+    auto& registry{inputs.registry};
+    const std::vector<std::vector<entt::entity>> oldPopulation{population};
     
     // When new parents are selected there may be unused genes in the registry, so clean them up periodically
     ++iterations;
-    bool doCleanup = iterations % cleanupFrequency == 0; 
+    const bool doCleanup{iterations % cleanupFrequency == 0}; 
 
     if (doCleanup)
     {
-        auto startView = registry.view<entt::entity>();
+        const auto startView{registry.view<entt::entity>()};
         for (auto gene: startView) 
         {
-            registry.emplace_or_replace<int>(gene, 0);
+            // Give each gene a reference count
+            registry.emplace_or_replace<int>(gene, 0); 
         }
     }
     
     for (auto& chromosome: population)
     {
         pick_random_chromosomes(inputs.k);
-        int parent_index = tournament_selection(scores);
+        const int parent_index{tournament_selection(scores)};
         chromosome = oldPopulation[parent_index];
         
-        if(doCleanup)
+        if (doCleanup)
         {
           // Count how many times each gene is used
           for (auto gene: chromosome)
@@ -48,8 +49,8 @@ void K_TournamentParentSelector::selectParents(std::vector<std::vector<entt::ent
     if (doCleanup)
     {
         // Remove genes that are not in use
-        auto endView = registry.view<entt::entity>();
-        for(auto gene: endView)
+        const auto endView{registry.view<entt::entity>()};
+        for (auto gene: endView)
         {
             if (registry.get<int>(gene) == 0)
             {
@@ -75,7 +76,7 @@ int K_TournamentParentSelector::tournament_selection(const std::vector<double>& 
         selectedScores[i] = scores[randomIndices[i]];
     }
 
-    auto it = std::max_element(selectedScores.begin(), selectedScores.end());
-    int max_index = it - selectedScores.begin();
+    const auto it{std::max_element(selectedScores.begin(), selectedScores.end())};
+    const auto max_index{it - selectedScores.begin()};
     return randomIndices[max_index];
 }
