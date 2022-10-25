@@ -12,12 +12,12 @@ class DefaultInitialSolutionGenerator
 public:
     struct ChromosomeGeneratorInputs
     {
-        int numChromosomes;
+        int numChromosomes{};
         entt::registry& registry;
-        std::vector<entt::entity> parameters;
+        std::vector<entt::entity> parameters{};
     };
 
-    explicit DefaultInitialSolutionGenerator(const ChromosomeGeneratorInputs& inputs): inputs(inputs){}
+    explicit DefaultInitialSolutionGenerator(ChromosomeGeneratorInputs inputs);
     std::vector<std::vector<entt::entity>> generate();
 
 private:

@@ -1,17 +1,16 @@
 #include "DefaultEvaluator.h"
-#include <iostream>
 
 DefaultEvaluator::DefaultEvaluator(DefaultEvaluatorInputs evaluatorInputs): 
-        inputs(evaluatorInputs)
+    inputs {std::move(evaluatorInputs)}
 {
     scores.resize(inputs.numChromosomes, 0);
 }
 
 bool DefaultEvaluator::continueIterating(std::vector<std::vector<entt::entity>>& chromosomes)
 {
-    for(auto i{0U}; i < chromosomes.size(); ++i)
+    for (auto i {0U}; i < chromosomes.size(); ++i)
     {
-        scores.at(i) = inputs.objectiveFunction(chromosomes.at(i));
+        scores[i] = inputs.objectiveFunction(chromosomes[i]);
     }
 
     bestChromosome = chromosomes[std::distance(

@@ -21,7 +21,7 @@ int main()
         registry.emplace<double>(entity, dist(numberGenerator));
     };
     
-    constexpr double constantInitialValue{9.0};
+    constexpr double constantInitialValue {9.0};
     auto constantInitializer = [&registry, constantInitialValue](auto entity)
     {
         registry.emplace<double>(entity, constantInitialValue);
@@ -30,17 +30,17 @@ int main()
     // Initialize parameters for objective function
     std::vector<entt::entity> parameters
     {
-        addParameter({.mutator = doubleGeneratorFunction,
-                    .initializer = doubleGeneratorFunction},
+        addParameter({.initializer = doubleGeneratorFunction,
+                    .mutator = doubleGeneratorFunction},
                     registry),
-        addParameter({.mutator = doubleGeneratorFunction,
-                    .initializer = constantInitializer},
+        addParameter({.initializer = constantInitializer,
+                    .mutator = doubleGeneratorFunction},
                     registry)
     };
 
     // Initialize objective function
-    constexpr double a{1.0};
-    constexpr double b{100.0};
+    constexpr double a {1.0};
+    constexpr double b {100.0};
     auto objFunction = [&registry](std::vector<entt::entity>& chromosome)
     {
         // Rosenbrock function
@@ -50,17 +50,17 @@ int main()
     };
 
     // Configure GA
-    auto ga{configureDefaultGA({
-        .objectiveFunction = objFunction,
-        .parameters = parameters,
+    auto ga {configureDefaultGA({
         .numIterations = 100,
         .numChromosomes = 10000,
         .k_numberTournamentSelection = 5,
         .mutationProbability = 0.08,
-        .crossoverProbability = 0.05
+        .crossoverProbability = 0.05,
+        .objectiveFunction = objFunction,
+        .parameters = parameters
     }, registry)};
     
-    auto bestChromosome{ga.runGA()};
+    auto bestChromosome {ga.runGA()};
 
     std::cout << "Ideal:\n Param 1: 1.0\n Param 2: 1.0\n Score: 0\n";
     std::cout << "Actual:\n";

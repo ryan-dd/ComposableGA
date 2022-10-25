@@ -11,11 +11,11 @@ class DefaultCrossover
 public:
     struct DefaultCrossoverParams
     {
-        int numParams;
-        double crossoverProbability;
+        int numParams{};
+        double crossoverProbability{};
     };
 
-    explicit DefaultCrossover(DefaultCrossoverParams inputParamaters); 
+    explicit DefaultCrossover(DefaultCrossoverParams inputParameters); 
     void crossover(std::vector<std::vector<entt::entity>>& input);
 
 private:

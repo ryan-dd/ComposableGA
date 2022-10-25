@@ -5,14 +5,15 @@
 
 #include <functional>
 #include <vector>
+
 class DefaultEvaluator
 {
 public:
     struct DefaultEvaluatorInputs
     {
-        std::function<double(std::vector<entt::entity>&)> objectiveFunction;
-        int numberOfIterations = 0;
-        int numChromosomes = 0;
+        std::function<double(std::vector<entt::entity>&)> objectiveFunction{};
+        int numberOfIterations{};
+        int numChromosomes{};
     };
 
     explicit DefaultEvaluator(DefaultEvaluatorInputs evaluatorInputs);
@@ -21,10 +22,10 @@ public:
     std::vector<entt::entity> getResult() const;
 
 private:
-    DefaultEvaluatorInputs inputs;
-    int currIterations = 0;
-    std::vector<double> scores;
-    std::vector<entt::entity> bestChromosome;
+    const DefaultEvaluatorInputs inputs{};
+    int currIterations{0};
+    std::vector<double> scores{};
+    std::vector<entt::entity> bestChromosome{};
 };
 
 #endif // DEFAULTEVALUATOR_H

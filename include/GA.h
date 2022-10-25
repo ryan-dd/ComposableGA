@@ -1,5 +1,6 @@
 #ifndef GA_H
 #define GA_H
+
 template<
     typename InitialSolutionGenerator,
     typename Evaluator,

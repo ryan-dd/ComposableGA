@@ -31,6 +31,6 @@ using DefaultGA = GA<DefaultInitialSolutionGenerator,
                     DefaultCrossover,
                     DefaultMutator>;
 
-DefaultGA configureDefaultGA(DefaultGA_Params params, entt::registry& registry);
+DefaultGA configureDefaultGA(const DefaultGA_Params& params, entt::registry& registry);
 
 #endif // DEFAULTGA_H

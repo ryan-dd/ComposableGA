@@ -8,8 +8,8 @@ Designed to:
 ## Build requirements
 
 CMake and Conan
-## To build
 
+## To build
 
 `conan install . -if build`
 
