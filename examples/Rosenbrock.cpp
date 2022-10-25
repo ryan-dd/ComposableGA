@@ -11,17 +11,17 @@
 int main()
 {
     // Initialize ECS registry
-    entt::registry registry;
+    entt::registry registry{};
     
     // Initialize mutation and initialization functions for parameters of type double
     std::mt19937 number_generator(std::random_device{}());
-    std::uniform_real_distribution<> dist(-10, 10);
+    std::uniform_real_distribution<> dist(-10.0, 10.0);
     auto doubleGeneratorFunction = [number_generator, dist, &registry](auto entity) mutable
     {
         registry.emplace<double>(entity, dist(number_generator));
     };
     
-    constexpr double constantInitialValue = 9;
+    constexpr double constantInitialValue{9.0};
     auto constantInitializer = [&registry, constantInitialValue](auto entity)
     {
         registry.emplace<double>(entity, constantInitialValue);
@@ -39,8 +39,8 @@ int main()
     };
 
     // Initialize objective function
-    constexpr double a = 1;
-    constexpr double b = 100;
+    constexpr double a{1.0};
+    constexpr double b{100.0};
     auto objFunction = [&registry](std::vector<entt::entity>& chromosome)
     {
         // Rosenbrock function
@@ -50,7 +50,7 @@ int main()
     };
 
     // Configure GA
-    auto ga = configureDefaultGA({
+    auto ga{configureDefaultGA({
         .objectiveFunction = objFunction,
         .parameters = parameters,
         .numIterations = 100,
@@ -58,12 +58,15 @@ int main()
         .k_numberTournamentSelection = 5,
         .mutationProbability = 0.08,
         .crossoverProbability = 0.05
-    }, registry);
+    }, registry)};
     
-    auto bestChromosome = ga.runGA();
-    std::cout << "Param 1" << registry.get<double>(bestChromosome.at(0)) << '\n';
-    std::cout << "Param 2" << registry.get<double>(bestChromosome.at(1)) << '\n';
-    std::cout << "Score: " << objFunction(bestChromosome);
+    auto bestChromosome{ga.runGA()};
+
+    std::cout << "Ideal:\n Param 1: 1.0\n Param 2: 1.0\n Score: 0\n";
+    std::cout << "Actual:\n";
+    std::cout << " Param 1: " << registry.get<double>(bestChromosome.at(0)) << ',' << '\n';
+    std::cout << " Param 2: " << registry.get<double>(bestChromosome.at(1)) << ',' << '\n';
+    std::cout << " Score: " << objFunction(bestChromosome) << '\n';
 
     return 0;
 }
