@@ -1,5 +1,5 @@
-add_executable(MixedParamTypes MixedParamTypes.cpp)
-target_link_libraries(MixedParamTypes PRIVATE ComposableGAlib)
-
 add_executable(Rosenbrock Rosenbrock.cpp)
-target_link_libraries(Rosenbrock PRIVATE ComposableGAlib)
+add_executable(TimeIt RandBenchmark.cpp)
+target_include_directories(Rosenbrock PUBLIC ${CMAKE_SOURCE_DIR}/src/)
+find_package(Boost REQUIRED)
+include_directories( ${Boost_INCLUDE_DIRS} )

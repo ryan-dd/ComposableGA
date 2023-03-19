@@ -1,5 +1,0 @@
-[requires]
-entt/3.9.0
-
-[generators]
-cmake

@@ -1,18 +1,14 @@
-# ComposableGA
-A C++ library for optimization with a genetic algorithm. Uses an ECS (entity component system) to represent parameters.
+# Evvy
 
-Designed to:
-1. Make it easy to swap out mutation, crossover, and selection strategies
-2. Make it easy to use heterogeneous parameters in objective function without modification to strategies.
+A header-only, composable evolutionary algorithm toolkit taking advantage of the latest C++20 features. See `examples` for more details and documentation.
 
 ## Build requirements
 
-CMake and Conan
+CMake 
 
-## To build
-
-`conan install . -if build`
+## Building (examples)
 
 `cmake -S . -B build`
 
 `cmake --build build`
+

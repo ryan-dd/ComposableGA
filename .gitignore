@@ -5,6 +5,7 @@ release/*
 TODO
 *compile_commands.json*
 .cache
+*.ccls-cache
 
 # Mac
 .DS_Store
