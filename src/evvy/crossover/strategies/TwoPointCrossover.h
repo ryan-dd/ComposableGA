@@ -1,7 +1,7 @@
 #ifndef EVVY_TWO_POINT_CROSSOVER_H
 #define EVVY_TWO_POINT_CROSSOVER_H
 
-#include "../../util/CompileTimeSize.h"
+#include "../../util/GetSize.h"
 #include "../../util/AggregateSwap.h"
 #include "../../rng/FastIndexRng.h"
 
@@ -17,11 +17,11 @@ class TwoPointCrossover
 {
 public:
   TwoPointCrossover(
-      SwapFunction&& swapFunction,
-      IndexRng&& indexRng = FastIndexRng(compileTimeSize<ChromosomeType>())
+      SwapFunction swapFunction,
+      IndexRng indexRng = FastIndexRng(compileTimeSize<ChromosomeType>())
     ):
-    doSwap(swapFunction),
-    indexRng(indexRng)
+    doSwap(std::move(swapFunction)),
+    indexRng(std::move(indexRng))
   {
   }
 
@@ -39,14 +39,14 @@ public:
   }
 
 private:
-  SwapFunction& doSwap;
-  IndexRng& indexRng;
+  SwapFunction doSwap;
+  IndexRng indexRng;
 };
 
 namespace detail
 {
   template<typename ChromosomeType>
-  using TwoPointCrossoverWithAggregate = TwoPointCrossover<ChromosomeType, decltype(evvy::aggregateMemberSwap<ChromosomeType>)>;
+  using TwoPointCrossoverWithAggregate = TwoPointCrossover<ChromosomeType, decltype(&evvy::aggregateMemberSwap<ChromosomeType>)>;
 }
 
 template<typename ChromosomeType>
@@ -54,7 +54,7 @@ class TwoPointCrossoverWithAggregate: public detail::TwoPointCrossoverWithAggreg
 {
 public:
   TwoPointCrossoverWithAggregate():
-    detail::TwoPointCrossoverWithAggregate<ChromosomeType>(aggregateMemberSwap<ChromosomeType>)
+    detail::TwoPointCrossoverWithAggregate<ChromosomeType>(&aggregateMemberSwap<ChromosomeType>)
   {
   }
 };
