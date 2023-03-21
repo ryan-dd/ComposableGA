@@ -1,7 +1,7 @@
 build/*
 debug/*
 release/*
-.vscode/settings.json
+.vscode/
 TODO
 *compile_commands.json*
 .cache
