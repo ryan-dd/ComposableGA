@@ -8,16 +8,19 @@
 namespace evvy
 {
 
+template<typename T>
+using DefaultTwoPointSwapFunction = decltype(&evvy::aggregateMemberSwap<T>);
+
 template<
   typename ChromosomeType,
-  std::invocable<ChromosomeType&, ChromosomeType&, std::size_t> SwapFunction,
+  std::invocable<ChromosomeType&, ChromosomeType&, std::size_t> SwapFunction = DefaultTwoPointSwapFunction<ChromosomeType>,
   typename IndexRng = FastIndexRng
 >
 class TwoPointCrossover
 {
 public:
   TwoPointCrossover(
-      SwapFunction swapFunction,
+      SwapFunction swapFunction = &aggregateMemberSwap<ChromosomeType>,
       IndexRng indexRng = FastIndexRng(compileTimeSize<ChromosomeType>())
     ):
     doSwap(std::move(swapFunction)),
@@ -41,22 +44,6 @@ public:
 private:
   SwapFunction doSwap;
   IndexRng indexRng;
-};
-
-namespace detail
-{
-  template<typename ChromosomeType>
-  using TwoPointCrossoverWithAggregate = TwoPointCrossover<ChromosomeType, decltype(&evvy::aggregateMemberSwap<ChromosomeType>)>;
-}
-
-template<typename ChromosomeType>
-class TwoPointCrossoverWithAggregate: public detail::TwoPointCrossoverWithAggregate<ChromosomeType>
-{
-public:
-  TwoPointCrossoverWithAggregate():
-    detail::TwoPointCrossoverWithAggregate<ChromosomeType>(&aggregateMemberSwap<ChromosomeType>)
-  {
-  }
 };
 
 }

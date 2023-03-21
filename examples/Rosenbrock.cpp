@@ -36,6 +36,8 @@ ScoreType objFunction(const ChromosomeType& chromosome)
 constexpr auto min = -10.0;
 constexpr auto max = 10.0;
 using MutatorFunctionType = std::function<void(ChromosomeType&)>;
+
+// One mutate function per parameter
 const std::array<MutatorFunctionType, 2> mutateFunctions
 {
   evvy::MutateNumeric<0, double>(min, max),
@@ -68,7 +70,7 @@ int main()
   }
 
   // Set up crossover
-  auto crossoverStrategy = evvy::TwoPointCrossoverWithAggregate<Rosenbrock::ChromosomeType>{};
+  auto crossoverStrategy = evvy::TwoPointCrossover<Rosenbrock::ChromosomeType>{};
   auto crossover = evvy::Crossover(evvy::ConstantProbability(crossoverProbability), crossoverStrategy);
 
   // Set up mutation
@@ -77,11 +79,13 @@ int main()
     {
       mutateFunctions[index](chromosome);
     };
+
   auto mutation = evvy::Mutation(
       evvy::ConstantProbability(mutateProbability), 
       mutationStrategy,
       evvy::compileTimeSize<Rosenbrock::ChromosomeType>());
 
+  // Run Genetic Algorithm
   evvy::Pipeline::run(
       chromosomes, 
       evvy::StopAfter(numIterations),
