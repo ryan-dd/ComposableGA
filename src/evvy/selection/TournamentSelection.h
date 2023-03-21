@@ -12,7 +12,7 @@
 namespace evvy
 {
 
-template<IndexableRange ScoreContainer>
+template<IndexableRange ScoreContainer, std::invocable IndexRng = FastIndexRng>
 requires std::totally_ordered<std::ranges::range_value_t<ScoreContainer>>
 class SelectWithTournament
 {
@@ -35,7 +35,7 @@ public:
 
     auto oldChromosomes = chromosomes;
 
-    FastIndexRng rng{chromosomes.size()-1};
+    IndexRng rng{chromosomes.size()-1};
     for(auto& chromosome: chromosomes)
     {
       ScoreType max_score{std::numeric_limits<ScoreType>::lowest()};
