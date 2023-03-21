@@ -2,9 +2,11 @@
 #include "evvy/evaluation/Evaluate.h"
 #include "evvy/mutation/IndependentParameterMutation.h"
 #include "evvy/mutation/MutatorFunctions.h"
-#include "evvy/crossover/IndependentParameterCrossover.h"
+#include "evvy/crossover/Crossover.h"
+#include "evvy/crossover/strategies/TwoPointCrossover.h"
 #include "evvy/selection/TournamentSelection.h"
 #include "evvy/stop_condition/StopAfter.h"
+#include "evvy/util/ConstantProbability.h"
 
 #include <algorithm>
 #include <iostream>
@@ -64,6 +66,8 @@ int main()
   }
 
   auto stopCondition = evvy::StopAfter(numIterations);
+  auto probability = evvy::ConstantProbability(crossoverProbability);
+  auto crossoverStrategy = evvy::TwoPointCrossoverWithAggregate<Rosenbrock::ChromosomeType>{};
 
   evvy::Pipeline::run(
       chromosomes, 
@@ -72,7 +76,7 @@ int main()
       evvy::Evaluate(scores, Rosenbrock::objFunction),
       evvy::SelectWithTournament(scores, tournamentSize),
       evvy::MutateIndependentParameters(Rosenbrock::mutateFunctions, mutateProbability),
-      evvy::CrossoverIndependentParameters<Rosenbrock::ChromosomeType>(crossoverProbability)
+      evvy::Crossover(probability, crossoverStrategy)
       // Pipeline end
       );
 
