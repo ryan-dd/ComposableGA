@@ -1,6 +1,6 @@
 #include "evvy/Pipeline.h"
 #include "evvy/evaluation/Evaluate.h"
-#include "evvy/mutation/IndependentParameterMutation.h"
+#include "evvy/mutation/Mutation.h"
 #include "evvy/mutation/MutatorFunctions.h"
 #include "evvy/crossover/Crossover.h"
 #include "evvy/crossover/strategies/TwoPointCrossover.h"
