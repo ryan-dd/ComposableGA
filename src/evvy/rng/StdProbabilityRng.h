@@ -1,6 +1,8 @@
 #ifndef EVVY_STD_PROBABILITY_RNG
 #define EVVY_STD_PROBABILITY_RNG
 
+#include <random>
+
 namespace evvy
 {
 

@@ -9,6 +9,7 @@
 #include "evvy/util/ConstantProbability.h"
 
 #include <algorithm>
+#include <functional>
 #include <iostream>
 #include <tuple>
 #include <utility>
@@ -34,10 +35,11 @@ ScoreType objFunction(const ChromosomeType& chromosome)
 
 constexpr auto min = -10.0;
 constexpr auto max = 10.0;
-constexpr std::array mutateFunctions
+using MutatorFunctionType = std::function<void(ChromosomeType&)>;
+const std::array<MutatorFunctionType, 2> mutateFunctions
 {
-  evvy::mutateNumeric<0, ChromosomeType, double, min, max>,
-  evvy::mutateNumeric<1, ChromosomeType, double, min, max>
+  evvy::MutateNumeric<0, double>(min, max),
+  evvy::MutateNumeric<1, double>(min, max)
 };
 
 }
@@ -65,20 +67,31 @@ int main()
     }
   }
 
-  auto stopCondition = evvy::StopAfter(numIterations);
-  auto probability = evvy::ConstantProbability(crossoverProbability);
+  // Set up crossover
   auto crossoverStrategy = evvy::TwoPointCrossoverWithAggregate<Rosenbrock::ChromosomeType>{};
+  auto crossover = evvy::Crossover(evvy::ConstantProbability(crossoverProbability), crossoverStrategy);
+
+  // Set up mutation
+  auto mutationStrategy = 
+    [mutateFunctions = Rosenbrock::mutateFunctions](Rosenbrock::ChromosomeType& chromosome, std::size_t index)
+    {
+      mutateFunctions[index](chromosome);
+    };
+  auto mutation = evvy::Mutation(
+      evvy::ConstantProbability(mutateProbability), 
+      mutationStrategy,
+      evvy::compileTimeSize<Rosenbrock::ChromosomeType>());
 
   evvy::Pipeline::run(
       chromosomes, 
-      stopCondition,
+      evvy::StopAfter(numIterations),
       // Pipeline start
       evvy::Evaluate(scores, Rosenbrock::objFunction),
       evvy::SelectWithTournament(scores, tournamentSize),
-      evvy::MutateIndependentParameters(Rosenbrock::mutateFunctions, mutateProbability),
-      evvy::Crossover(probability, crossoverStrategy)
+      crossover,
+      mutation
       // Pipeline end
-      );
+  );
 
   std::transform(
       chromosomes.cbegin(), chromosomes.cend(), 
