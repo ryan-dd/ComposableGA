@@ -37,11 +37,11 @@ public:
   {
     for(auto& chromosome: chromosomes)
     {
-      for(auto j{0}; j < chromosomeSize; ++j)
+      for(auto index{0}; index < chromosomeSize; ++index)
       {
         if(generator() < mutationProbability())
         {
-          doMutation(chromosome, j);
+          doMutation(chromosome, index);
         }
       }
     }
