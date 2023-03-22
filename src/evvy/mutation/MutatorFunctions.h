@@ -37,8 +37,8 @@ public:
   MutateNumeric(ValueType min, ValueType max):
     min{min},
     max{max},
-    generator{getGenerator(min, max)},
-    rng(std::random_device{}())
+    rng(std::random_device{}()),
+    generator{getGenerator(min, max)}
   {
 
   }

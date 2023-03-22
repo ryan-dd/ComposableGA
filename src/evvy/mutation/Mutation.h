@@ -37,7 +37,7 @@ public:
   {
     for(auto& chromosome: chromosomes)
     {
-      for(auto index{0}; index < chromosomeSize; ++index)
+      for(std::size_t index{0}; index < chromosomeSize; ++index)
       {
         if(generator() < mutationProbability())
         {
