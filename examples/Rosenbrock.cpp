@@ -57,7 +57,6 @@ int main()
   constexpr auto mutateProbability{0.8};
   constexpr auto crossoverProbability{0.4};
 
-
   using ChromosomeContainer = std::array<Rosenbrock::ChromosomeType, numChromosomes>;
   using ScoreContainer = std::array<Rosenbrock::ScoreType, numChromosomes>;
 
@@ -78,7 +77,7 @@ int main()
   auto crossover = evvy::Crossover(evvy::ConstantProbability(crossoverProbability), crossoverStrategy);
 
   // Set up mutation
-  auto mutationStrategy = 
+  auto mutationStrategy = // Calls the correct mutation function for the index selected
     [mutateFunctions = Rosenbrock::mutateFunctions](Rosenbrock::ChromosomeType& chromosome, std::size_t index)
     {
       mutateFunctions[index](chromosome);
