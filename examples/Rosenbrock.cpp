@@ -28,7 +28,7 @@ using ScoreType = double;
 
 ScoreType objFunction(const ChromosomeType& chromosome)
 {
-  // Rosenbrock function
+  // Rosenbrock function - https://en.wikipedia.org/wiki/Rosenbrock_function 
   constexpr double a {1.0};
   constexpr double b {100.0};
   return -(std::pow((a - chromosome.x), 2) + b*std::pow((chromosome.y - std::pow(chromosome.x, 2)), 2));
