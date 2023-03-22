@@ -38,7 +38,7 @@ constexpr auto min = -10.0;
 constexpr auto max = 10.0;
 using MutatorFunctionType = std::function<void(ChromosomeType&)>;
 
-// One mutate function per parameter
+// One mutate function per parameter, index 0 for "x" and index 1 for "y"
 const std::array<MutatorFunctionType, 2> mutateFunctions
 {
   evvy::MutateNumeric<0, double>(min, max),
@@ -112,10 +112,10 @@ int main()
       )];
 
   auto end = std::chrono::high_resolution_clock::now();
-  auto ms_int = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+  auto millisecondsElapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
 
   std::cout << "Time elapsed:\n ";
-  std::cout << ms_int.count() << "ms\n";
+  std::cout << millisecondsElapsed.count() << "ms\n";
 
   std::cout << "Ideal:\n Param 1: 1.0\n Param 2: 1.0\n Score: 0\n";
   std::cout << "Actual:\n";
