@@ -101,13 +101,14 @@ int main()
       // Pipeline end
   );
 
-  std::transform(
-      chromosomes.cbegin(), chromosomes.cend(), 
-      scores.begin(), Rosenbrock::objFunction);
+  std::ranges::transform(
+      chromosomes, 
+      std::ranges::begin(scores), 
+      Rosenbrock::objFunction);
 
-  auto bestChromosome = chromosomes[std::distance(
-      scores.begin(), 
-      std::max_element(scores.begin(), scores.end())
+  auto bestChromosome = chromosomes[std::ranges::distance(
+      std::ranges::begin(scores),
+      std::ranges::max_element(scores)
       )];
 
   auto end = std::chrono::high_resolution_clock::now();

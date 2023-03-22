@@ -26,7 +26,7 @@ public:
            >
   void operator()(ChromosomeContainer& container)
   {
-    std::ranges::transform(container, scores.begin(), objFunction);
+    std::ranges::transform(container, std::ranges::begin(scores), objFunction);
   }
 
 };

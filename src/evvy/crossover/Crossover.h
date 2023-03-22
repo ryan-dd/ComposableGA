@@ -33,10 +33,12 @@ public:
            std::ranges::range_value_t<ChromosomeContainer>&> // Matches signature of doCrossover(...)
   void operator()(ChromosomeContainer& chromosomes)
   {
-    for(auto it1 = chromosomes.begin(); it1 != chromosomes.end(); std::advance(it1, 2))
+    for(auto it1 = std::ranges::begin(chromosomes); 
+        it1 != std::ranges::end(chromosomes); 
+        std::ranges::advance(it1, 2))
     {
       auto it2{++it1};
-      if(it2 == chromosomes.end())
+      if(it2 == std::ranges::end(chromosomes))
       {
         return;
       }
