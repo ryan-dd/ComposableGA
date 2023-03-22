@@ -9,6 +9,7 @@
 #include "evvy/util/ConstantProbability.h"
 
 #include <algorithm>
+#include <chrono>
 #include <functional>
 #include <iostream>
 #include <tuple>
@@ -48,11 +49,14 @@ const std::array<MutatorFunctionType, 2> mutateFunctions
 
 int main()
 {
-  constexpr auto numChromosomes{10};
+  auto start = std::chrono::high_resolution_clock::now();
+
+  constexpr auto numChromosomes{10000};
   constexpr auto numIterations{100};
   constexpr auto tournamentSize{5};
   constexpr auto mutateProbability{0.8};
   constexpr auto crossoverProbability{0.4};
+
 
   using ChromosomeContainer = std::array<Rosenbrock::ChromosomeType, numChromosomes>;
   using ScoreContainer = std::array<Rosenbrock::ScoreType, numChromosomes>;
@@ -105,6 +109,12 @@ int main()
       scores.begin(), 
       std::max_element(scores.begin(), scores.end())
       )];
+
+  auto end = std::chrono::high_resolution_clock::now();
+  auto ms_int = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+
+  std::cout << "Time elapsed:\n ";
+  std::cout << ms_int.count() << "ms\n";
 
   std::cout << "Ideal:\n Param 1: 1.0\n Param 2: 1.0\n Score: 0\n";
   std::cout << "Actual:\n";
