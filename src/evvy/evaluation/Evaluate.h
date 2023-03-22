@@ -16,7 +16,7 @@ private:
 public:
   Evaluate(ScoreContainer& scores, ObjFunction objFunction): 
     scores(scores),
-    objFunction(objFunction)
+    objFunction(std::move(objFunction))
   {}
 
   template<std::ranges::input_range ChromosomeContainer>
