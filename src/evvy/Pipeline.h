@@ -24,7 +24,7 @@ public:
     std::invocable<ChromosomeContainer&>... PipelineFunctions
   >
   static void run(
-      ChromosomeContainer& chromosomes, 
+      ChromosomeContainer&& chromosomes, 
       StopCondition&& shouldStop, 
       PipelineFunctions&&... functions)
   {
