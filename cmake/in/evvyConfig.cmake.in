@@ -1,0 +1,8 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+find_dependency(Boost REQUIRED)
+
+set(EVVY_VERSION "@PROJECT_VERSION@")
+include("${CMAKE_CURRENT_LIST_DIR}/evvyTargets.cmake")
+check_required_components("@PROJECT_NAME@")

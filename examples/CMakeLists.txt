@@ -1,5 +1,5 @@
 add_executable(Rosenbrock Rosenbrock.cpp)
-target_include_directories(Rosenbrock PUBLIC ${CMAKE_SOURCE_DIR}/src/)
+include(CompilerWarnings)
+set_project_warnings(Rosenbrock)
+target_link_libraries(Rosenbrock PRIVATE evvy)
 
-find_package(Boost REQUIRED)
-include_directories( ${Boost_INCLUDE_DIRS} )
