@@ -35,12 +35,12 @@ public:
 
     auto oldChromosomes = chromosomes;
 
-    IndexRng rng{chromosomes.size()-1};
+    IndexRng rng{static_cast<std::uint32_t>(chromosomes.size() - 1)};
     for(auto& chromosome: chromosomes)
     {
       ScoreType max_score{std::numeric_limits<ScoreType>::lowest()};
       IndexType winnerIndex{0};
-      for (auto i{0}; i < tournamentSize; ++i)
+      for (std::size_t i{0}; i < tournamentSize; ++i)
       {
         auto scoreIndex{rng()};
         if(scores[scoreIndex] > max_score)

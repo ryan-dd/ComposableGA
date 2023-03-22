@@ -32,6 +32,7 @@ public:
     {
       // Invokes each function in left to right order
       auto list = { (std::forward<PipelineFunctions>(functions)(chromosomes), 0)... };
+      (void)list; // supress unused warning
 
       if(shouldStop())
       {
