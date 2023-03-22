@@ -106,10 +106,11 @@ int main()
       std::ranges::begin(scores), 
       Rosenbrock::objFunction);
 
-  auto bestChromosome = chromosomes[std::ranges::distance(
+  auto bestChromosomeIndex{static_cast<std::size_t>(std::ranges::distance(
       std::ranges::begin(scores),
-      std::ranges::max_element(scores)
-      )];
+      std::ranges::max_element(scores))
+      )};
+  auto bestChromosome = chromosomes[bestChromosomeIndex];
 
   auto end = std::chrono::high_resolution_clock::now();
   auto millisecondsElapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
