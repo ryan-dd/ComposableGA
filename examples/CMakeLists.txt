@@ -1,5 +1,5 @@
 add_executable(Rosenbrock Rosenbrock.cpp)
-add_executable(TimeIt RandBenchmark.cpp)
 target_include_directories(Rosenbrock PUBLIC ${CMAKE_SOURCE_DIR}/src/)
+
 find_package(Boost REQUIRED)
 include_directories( ${Boost_INCLUDE_DIRS} )
