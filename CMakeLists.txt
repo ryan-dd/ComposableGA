@@ -31,11 +31,12 @@ target_compile_features(evy INTERFACE cxx_std_20)
 find_package(Boost REQUIRED) # Requires header-only boost::pfr
 target_include_directories(evy INTERFACE ${Boost_INCLUDE_DIRS})
 
+option(EVY_BUILD_TESTS "Enable building tests." OFF)
+option(EVY_BUILD_EXAMPLES "Enable building examples." OFF)
 option(EVY_ENABLE_INSTALL "Enable the install target" ON)
+
 option(EVY_USE_SANITIZERS "Enable sanitizers by adding -fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined flags if available." OFF)
 option(EVY_USE_STATIC_ANALYZERS "Enable static analyzers" OFF)
-option(ENTT_BUILD_TESTS "Enable building tests." OFF)
-option(EVY_BUILD_EXAMPLES "Enable building examples." OFF)
 option(EVY_DEV_MODE "Set defaults for developing." OFF)
 
 if(EVY_DEV_MODE)
