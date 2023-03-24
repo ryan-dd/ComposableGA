@@ -31,11 +31,11 @@ target_compile_features(evvy INTERFACE cxx_std_20)
 find_package(Boost REQUIRED) # Requires header-only boost::pfr
 target_include_directories(evvy INTERFACE ${Boost_INCLUDE_DIRS})
 
-option(EVVY_ENABLE_INSTALL   "Enable the install target" ON)
+option(EVVY_ENABLE_INSTALL "Enable the install target" ON)
 option(EVVY_USE_SANITIZERS "Enable sanitizers by adding -fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined flags if available." OFF)
 option(EVVY_USE_STATIC_ANALYZERS "Enable static analyzers" OFF)
 option(ENTT_BUILD_TESTS "Enable building tests." OFF)
-option(EVVY_BUILD_EXAMPLES "Enable building tests." OFF)
+option(EVVY_BUILD_EXAMPLES "Enable building examples." OFF)
 option(EVVY_DEV_MODE "Set defaults for developing." OFF)
 
 if(EVVY_DEV_MODE)

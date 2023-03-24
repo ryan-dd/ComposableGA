@@ -6,6 +6,7 @@
 #include <type_traits>
 #include <stdexcept>
 #include <cassert>
+#include <ranges>
 
 #include <boost/pfr.hpp>
 
@@ -21,8 +22,7 @@ struct AggregateSwapFuncTable;
 template<typename Aggregate, std::size_t Index>
 void aggregateMemberSwap(Aggregate& t1, Aggregate& t2) noexcept
 {
-  using std::swap;
-  swap(boost::pfr::get<Index>(t1), boost::pfr::get<Index>(t2));
+  std::ranges::swap(boost::pfr::get<Index>(t1), boost::pfr::get<Index>(t2));
 }
 
 template<typename Aggregate, std::size_t... Indices>

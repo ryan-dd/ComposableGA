@@ -22,9 +22,8 @@ public:
   template<std::ranges::input_range ChromosomeContainer>
   requires std::convertible_to<
             std::invoke_result_t<ObjFunction, std::ranges::range_value_t<ChromosomeContainer>&>, 
-            std::ranges::range_value_t<ScoreContainer>
-           >
-  void operator()(ChromosomeContainer& container)
+            std::ranges::range_value_t<ScoreContainer>>
+  void operator()(const ChromosomeContainer& container)
   {
     std::ranges::transform(container, std::ranges::begin(scores), objFunction);
   }
