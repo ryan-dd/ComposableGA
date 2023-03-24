@@ -1,12 +1,12 @@
-#include "evvy/Pipeline.h"
-#include "evvy/evaluation/Evaluate.h"
-#include "evvy/mutation/Mutation.h"
-#include "evvy/mutation/MutatorFunctions.h"
-#include "evvy/crossover/Crossover.h"
-#include "evvy/crossover/strategies/TwoPointCrossover.h"
-#include "evvy/selection/TournamentSelection.h"
-#include "evvy/stop_condition/StopAfter.h"
-#include "evvy/util/ConstantProbability.h"
+#include "evy/Pipeline.h"
+#include "evy/evaluation/Evaluate.h"
+#include "evy/mutation/Mutation.h"
+#include "evy/mutation/MutatorFunctions.h"
+#include "evy/crossover/Crossover.h"
+#include "evy/crossover/strategies/TwoPointCrossover.h"
+#include "evy/selection/TournamentSelection.h"
+#include "evy/stop_condition/StopAfter.h"
+#include "evy/util/ConstantProbability.h"
 
 #include <algorithm>
 #include <chrono>
@@ -41,8 +41,8 @@ using MutatorFunctionType = std::function<void(ChromosomeType&)>;
 // One mutate function per parameter, index 0 for "x" and index 1 for "y"
 const std::array<MutatorFunctionType, 2> mutateFunctions
 {
-  evvy::MutateNumeric<0, double>(min, max),
-  evvy::MutateNumeric<1, double>(min, max)
+  evy::MutateNumeric<0, double>(min, max),
+  evy::MutateNumeric<1, double>(min, max)
 };
 
 }
@@ -73,8 +73,8 @@ int main()
   }
 
   // Set up crossover
-  auto crossoverStrategy = evvy::TwoPointCrossover<Rosenbrock::ChromosomeType>{};
-  auto crossover = evvy::Crossover(evvy::ConstantProbability(crossoverProbability), crossoverStrategy);
+  auto crossoverStrategy = evy::TwoPointCrossover<Rosenbrock::ChromosomeType>{};
+  auto crossover = evy::Crossover(evy::ConstantProbability(crossoverProbability), crossoverStrategy);
 
   // Set up mutation
   auto mutationStrategy = // Calls the correct mutation function for the index selected
@@ -83,18 +83,18 @@ int main()
       mutateFunctions[index](chromosome);
     };
 
-  auto mutation = evvy::Mutation(
-      evvy::ConstantProbability(mutateProbability), 
+  auto mutation = evy::Mutation(
+      evy::ConstantProbability(mutateProbability), 
       mutationStrategy,
-      evvy::compileTimeSize<Rosenbrock::ChromosomeType>());
+      evy::compileTimeSize<Rosenbrock::ChromosomeType>());
 
   // Run Genetic Algorithm
-  evvy::Pipeline::run(
+  evy::Pipeline::run(
       chromosomes, 
-      evvy::StopAfter(numIterations),
+      evy::StopAfter(numIterations),
       // Pipeline start
-      evvy::Evaluate(scores, Rosenbrock::objFunction),
-      evvy::SelectWithTournament(scores, tournamentSize),
+      evy::Evaluate(scores, Rosenbrock::objFunction),
+      evy::SelectWithTournament(scores, tournamentSize),
       crossover,
       mutation
       // Pipeline end

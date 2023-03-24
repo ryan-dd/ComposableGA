@@ -1,8 +1,8 @@
-#ifndef EVVY_INT_TYPE_H
-#define EVVY_INT_TYPE_H
+#ifndef EVY_INT_TYPE_H
+#define EVY_INT_TYPE_H
 
 #include <type_traits>
-namespace evvy 
+namespace evy 
 {
 
 template<typename T>

@@ -1,7 +1,7 @@
-#ifndef EVVY_TUPLE_LIKE_H
-#define EVVY_TUPLE_LIKE_H
+#ifndef EVY_TUPLE_LIKE_H
+#define EVY_TUPLE_LIKE_H
 
-namespace evvy
+namespace evy
 {
 
 namespace detail

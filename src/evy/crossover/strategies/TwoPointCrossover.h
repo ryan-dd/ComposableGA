@@ -1,15 +1,15 @@
-#ifndef EVVY_TWO_POINT_CROSSOVER_H
-#define EVVY_TWO_POINT_CROSSOVER_H
+#ifndef EVY_TWO_POINT_CROSSOVER_H
+#define EVY_TWO_POINT_CROSSOVER_H
 
 #include "../../util/GetSize.h"
 #include "../../util/AggregateSwap.h"
 #include "../../rng/FastIndexRng.h"
 
-namespace evvy
+namespace evy
 {
 
 template<typename T>
-using DefaultTwoPointSwapFunction = decltype(&evvy::aggregateMemberSwap<T>);
+using DefaultTwoPointSwapFunction = decltype(&evy::aggregateMemberSwap<T>);
 
 template<
   typename ChromosomeType,

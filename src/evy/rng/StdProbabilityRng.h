@@ -1,10 +1,10 @@
-#ifndef EVVY_STD_PROBABILITY_RNG
-#define EVVY_STD_PROBABILITY_RNG
+#ifndef EVY_STD_PROBABILITY_RNG
+#define EVY_STD_PROBABILITY_RNG
 
 #include <random>
 #include <ranges>
 
-namespace evvy
+namespace evy
 {
 
 class StdProbabilityRng

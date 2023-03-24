@@ -1,7 +1,7 @@
-#ifndef EVVY_INDEXABLE_RANGE_H
-#define EVVY_INDEXABLE_RANGE_H
+#ifndef EVY_INDEXABLE_RANGE_H
+#define EVY_INDEXABLE_RANGE_H
 
-namespace evvy
+namespace evy
 {
 
 template<typename Container>

@@ -1,7 +1,7 @@
-#ifndef EVVY_GET_SIZE_H
-#define EVVY_GET_SIZE_H
+#ifndef EVY_GET_SIZE_H
+#define EVY_GET_SIZE_H
 
-namespace evvy
+namespace evy
 {
 
 template<typename T>

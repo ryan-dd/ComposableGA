@@ -1,15 +1,15 @@
-#ifndef EVVY_TOURNAMENT_SELECTION_H
-#define EVVY_TOURNAMENT_SELECTION_H
+#ifndef EVY_TOURNAMENT_SELECTION_H
+#define EVY_TOURNAMENT_SELECTION_H
 
-#include "evvy/rng/FastIndexRng.h"
-#include "evvy/util/concepts/IndexableRange.h"
+#include "evy/rng/FastIndexRng.h"
+#include "evy/util/concepts/IndexableRange.h"
 
 #include <limits>
 #include <array>
 #include <ranges>
 #include <cassert>
 
-namespace evvy
+namespace evy
 {
 
 template<IndexableRange ScoreContainer, std::invocable IndexRng = FastIndexRng>

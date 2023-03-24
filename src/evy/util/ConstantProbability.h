@@ -1,7 +1,7 @@
-#ifndef EVVY_CONSTANT_PROBABILITY_H
-#define EVVY_CONSTANT_PROBABILITY_H
+#ifndef EVY_CONSTANT_PROBABILITY_H
+#define EVY_CONSTANT_PROBABILITY_H
 
-namespace evvy
+namespace evy
 {
 
 template<typename ValueType>

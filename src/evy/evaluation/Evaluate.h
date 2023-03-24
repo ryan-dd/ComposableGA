@@ -1,10 +1,10 @@
-#ifndef EVVY_EVALUATE_H
-#define EVVY_EVALUATE_H
+#ifndef EVY_EVALUATE_H
+#define EVY_EVALUATE_H
 
 #include <ranges>
 #include <concepts>
 
-namespace evvy
+namespace evy
 {
 
 template<std::ranges::range ScoreContainer, typename ObjFunction>

@@ -1,12 +1,12 @@
-#ifndef EVVY_MUTATION_H
-#define EVVY_MUTATION_H
+#ifndef EVY_MUTATION_H
+#define EVY_MUTATION_H
 
 #include "../rng/StdProbabilityRng.h"
 
 #include <concepts>
 #include <ranges>
 
-namespace evvy
+namespace evy
 {
 
 template<

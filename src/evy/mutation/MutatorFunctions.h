@@ -1,5 +1,5 @@
-#ifndef EVVY_MUTATOR_FUNCTIONS_H
-#define EVVY_MUTATOR_FUNCTIONS_H
+#ifndef EVY_MUTATOR_FUNCTIONS_H
+#define EVY_MUTATOR_FUNCTIONS_H
 
 #include "../util/concepts/TupleLike.h"
 #include "../util/concepts/ValueMatching.h"
@@ -12,25 +12,25 @@
 namespace
 {
   template<typename ValueType>
-  requires (evvy::IntType<ValueType> || std::is_floating_point_v<ValueType>)
+  requires (evy::IntType<ValueType> || std::is_floating_point_v<ValueType>)
   auto getGenerator(ValueType min, ValueType max)
   {
     if constexpr(std::is_floating_point_v<ValueType>)
     {
       return std::uniform_real_distribution(min, max);
     }
-    else if constexpr(evvy::IntType<ValueType>)
+    else if constexpr(evy::IntType<ValueType>)
     {
       return std::uniform_int_distribution(min, max);
     }
   }
 }
 
-namespace evvy
+namespace evy
 {
 
 template<std::size_t Index, typename ValueType> 
-requires (evvy::IntType<ValueType> || std::is_floating_point_v<ValueType>)
+requires (evy::IntType<ValueType> || std::is_floating_point_v<ValueType>)
 class MutateNumeric
 {
 public:

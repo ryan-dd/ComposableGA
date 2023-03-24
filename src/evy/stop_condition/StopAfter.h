@@ -1,7 +1,7 @@
-#ifndef EVVY_STOP_AFTER_H
-#define EVVY_STOP_AFTER_H
+#ifndef EVY_STOP_AFTER_H
+#define EVY_STOP_AFTER_H
 
-namespace evvy
+namespace evy
 {
 
 class StopAfter

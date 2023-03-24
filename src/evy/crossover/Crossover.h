@@ -1,11 +1,11 @@
-#ifndef EVVY_CROSSOVER_H
-#define EVVY_CROSSOVER_H
+#ifndef EVY_CROSSOVER_H
+#define EVY_CROSSOVER_H
 
 #include "../rng/StdProbabilityRng.h"
 
 #include <ranges>
 
-namespace evvy
+namespace evy
 {
 
 template<
@@ -56,6 +56,6 @@ private:
   ProbabilityGenerator generator;
 };
 
-} // namespace evvy
+} // namespace evy
 
 #endif

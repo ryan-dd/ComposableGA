@@ -1,9 +1,9 @@
-#ifndef EVVY_VALUE_MATCHING_H
-#define EVVY_VALUE_MATCHING_H
+#ifndef EVY_VALUE_MATCHING_H
+#define EVY_VALUE_MATCHING_H
 
 #include <boost/pfr/core.hpp>
 
-namespace evvy
+namespace evy
 {
 
 template<typename T, typename ValueType>
@@ -22,7 +22,7 @@ concept AggregateWithMemberTypeAtIndex = requires (Aggregate a)
 template<typename Tuple, typename ValueType, std::size_t Index>
 concept TupleWithMemberTypeAtIndex = requires (Tuple a)
 {
-  requires evvy::TupleLike<Tuple>;
+  requires evy::TupleLike<Tuple>;
   {std::get<Index>(a)} -> std::convertible_to<ValueType>;
 };
 

@@ -1,5 +1,5 @@
-#ifndef EVVY_AGGREGATE_SWAP_H
-#define EVVY_AGGREGATE_SWAP_H
+#ifndef EVY_AGGREGATE_SWAP_H
+#define EVY_AGGREGATE_SWAP_H
 
 #include <tuple>
 #include <utility>
@@ -10,7 +10,7 @@
 
 #include <boost/pfr.hpp>
 
-namespace evvy
+namespace evy
 {
 
 namespace detail

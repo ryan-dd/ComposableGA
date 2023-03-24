@@ -1,12 +1,12 @@
-#ifndef EVVY_PIPELINE_H
-#define EVVY_PIPELINE_H
+#ifndef EVY_PIPELINE_H
+#define EVY_PIPELINE_H
 
 #include <concepts>
 #include <algorithm>
 #include <functional>
 #include <initializer_list>
 
-namespace evvy
+namespace evy
 {
 
 template<typename T>

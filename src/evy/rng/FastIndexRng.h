@@ -1,10 +1,10 @@
-#ifndef EVVY_FAST_INDEX_RNG_H
-#define EVVY_FAST_INDEX_RNG_H
+#ifndef EVY_FAST_INDEX_RNG_H
+#define EVY_FAST_INDEX_RNG_H
 
 #include "prng/xoshiro256ss.h"
 #include "distributions/IntMult.h"
 
-namespace evvy
+namespace evy
 {
 
 class FastIndexRng

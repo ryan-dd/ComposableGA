@@ -1,5 +1,5 @@
-#ifndef EVVY_INT_MULT_H
-#define EVVY_INT_MULT_H
+#ifndef EVY_INT_MULT_H
+#define EVY_INT_MULT_H
 
 #include <cstdint>
 
