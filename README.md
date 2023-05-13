@@ -2,7 +2,7 @@
 
 A header-only, composable evolutionary algorithm toolkit taking advantage of the latest C++20 features. See `examples` for more details and documentation.
 
-Out of the box, supports running genetic algorithm with custom POD types and objective functions. Heavily depends on concepts and templates to avoid any inheritance and associated runtime penalties.
+Out of the box, supports running genetic algorithm with custom POD types and objective functions. Heavily depends on concepts and templates to avoid any inheritance and possible associated runtime penalties.
 
 # Dependencies
 
@@ -29,15 +29,21 @@ ScoreType objFunction(const ChromosomeType& chromosome)
   // Rosenbrock function - https://en.wikipedia.org/wiki/Rosenbrock_function 
   constexpr double a {1.0};
   constexpr double b {100.0};
+  // f(x, y) = -(a - x)^2 + b(y-x)^2
   return -(std::pow((a - chromosome.x), 2) + b*std::pow((chromosome.y - std::pow(chromosome.x, 2)), 2));
 }
 
 }
 ```
 
-Notice how no inheritance of base classes are requires, just simply declaring and using types and functions.
+Notice how no inheritance of base classes are required, just simply declaring and using types and functions.
 
-We can then define a mutation strategy for our chromosomes matching the signature of `void myMutateStrategy(ChromosomeType& chromosome, std::size_t index)`.
+We can then define a basic mutation strategy for our chromosomes where we define a mutation function for x and y:
+We use the IndependentMutation functor, which takes in the functions as arguments and has a call operator that matches the interface below:
+
+```C++
+void myMutateStrategy(ChromosomeType& chromosome, std::size_t index)
+```
 
 ```C++
 
@@ -52,26 +58,28 @@ const std::array<MutatorFunctionType, 2> mutateFunctions
   evy::MutateNumeric<1, double>(min, max)
 };
 
-auto mutationStrategy = // Calls the correct mutation function for the index selected
-  [mutateFunctions = Rosenbrock::mutateFunctions](Rosenbrock::ChromosomeType& chromosome, std::size_t index)
-  {
-    mutateFunctions[index](chromosome);
-  };
+auto mutationStrategy = evy::IndependentMutation(mutateFunctions);
 ```
 
-The utility function `evy::MutateNumeric` is used to as a random number generator with a uniform distribution for integer and floating point types. 
-Note that passing the whole chromosome in the function along with the index allows for flexibility in the mutation strategy for problem domains such as the travelling salesman problem (TSP) that require some form of chromosome repair after the mutation.
+The utility function `evy::MutateNumeric` generates random numbers with a uniform distribution for integer or floating point types. 
 
-The crossover strategy is simpler to specify:
+The crossover strategy should match the interface of:
 
 ```C++
-auto crossoverStrategy = evy::TwoPointCrossover<Rosenbrock::ChromosomeType>{};
+void myCrossover(ChromosomeType& c1, ChromosomeType& c2);
+```
+
+In this example, we use the two point crossover strategy provided by evy.
+
+```C++
+auto crossoverStrategy = evy::TwoPointCrossover<Rosenbrock::ChromosomeType>{}; ```
 ```
 
 We can then define and initialize the initial chromosome population
 
 ```C++
 constexpr auto numChromosomes{10000};
+
 using ChromosomeContainer = std::array<Rosenbrock::ChromosomeType, numChromosomes>;
 ChromosomeContainer chromosomes{};
 
@@ -85,7 +93,7 @@ for(auto& chromosome: chromosomes)
 }
 ```
 
-Finally, we can define the parameters necessary and run the genetic algorithm, with the steps being: Evaluate, selection, crossover, and mutation.
+We can then define the parameters necessary and run the genetic algorithm, with the steps being: Evaluate, selection, crossover, and mutation.
 
 ```C++
 constexpr auto numIterations{100};
@@ -113,5 +121,17 @@ evy::Pipeline::run(
 );
 ```
 
-We can get the best 
+Finally, we can get the best chromosome with a helper method and print out the objective function result.
 
+```C++
+evy::Evaluate(scores, Rosenbrock::objFunction)(chromosomes);
+
+auto bestChromosomeIndex{std::ranges::distance(
+    std::ranges::begin(scores),
+    std::ranges::max_element(scores))};
+auto bestChromosome = chromosomes[static_cast<std::size_t>(bestChromosomeIndex)];
+
+std::cout << " Param 1: " << bestChromosome.x << ',' << '\n';
+std::cout << " Param 2: " << bestChromosome.y << ',' << '\n';
+std::cout << " Score: " << Rosenbrock::objFunction(bestChromosome) << '\n';
+```
