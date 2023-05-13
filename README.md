@@ -6,7 +6,7 @@ Out of the box, supports running genetic algorithm with custom aggregate types a
 
 # Dependencies
 
-Depends on header-only __boost::pfr__ to facilitate accessing each member variable of a aggregate by numbered index (hopefully this will be in the standard library eventually, see [P2141](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p2141r0.html))
+Depends on header-only __boost::pfr__ (aka magic\_get) to facilitate accessing each member variable of a aggregate by numbered index (hopefully this will be in the standard library eventually, see [P2141](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p2141r0.html))
 
 # Genetic Algorithm Tutorial
 
@@ -30,6 +30,7 @@ ScoreType objFunction(const ChromosomeType& chromosome)
   constexpr double a {1.0};
   constexpr double b {100.0};
   // f(x, y) = -(a - x)^2 + b(y-x)^2
+  // With normal function the goal is to minimize it, but since selection maximizes by default, multiply function by -1.
   return -(std::pow((a - chromosome.x), 2) + b*std::pow((chromosome.y - std::pow(chromosome.x, 2)), 2));
 }
 
