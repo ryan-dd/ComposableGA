@@ -42,7 +42,7 @@ public:
 
   static constexpr result_type max()
   {
-    return std::numeric_limits<result_type>::max;
+    return std::numeric_limits<result_type>::max();
   }
 
 private:
