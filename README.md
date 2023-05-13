@@ -66,13 +66,13 @@ const std::array<MutatorFunctionType, 2> mutateFunctions
 auto mutationStrategy = evy::IndependentMutation(mutateFunctions);
 ```
 
-The crossover strategy should match the interface of:
+Then we can define the crossover strategy, which should match the interface of:
 
 ```C++
 void customCrossover(ChromosomeType& c1, ChromosomeType& c2);
 ```
 
-In this example, we use the two point crossover strategy provided by evy.
+In this example, we use the two point crossover strategy provided by `evy`.
 
 ```C++
 auto crossoverStrategy = evy::TwoPointCrossover<Rosenbrock::ChromosomeType>{}; ```
@@ -122,7 +122,7 @@ evy::Pipeline::run(
 );
 ```
 
-Finally, we can get the best chromosome with a helper method and print out the objective function result.
+Finally, we can get the best chromosome and print out the objective function result.
 
 ```C++
 evy::Evaluate(scores, Rosenbrock::objFunction)(chromosomes);
