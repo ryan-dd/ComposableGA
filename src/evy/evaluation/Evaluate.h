@@ -3,6 +3,7 @@
 
 #include <ranges>
 #include <concepts>
+#include <algorithm>
 
 namespace evy
 {
@@ -25,7 +26,10 @@ public:
             std::ranges::range_value_t<ScoreContainer>>
   void operator()(const ChromosomeContainer& container)
   {
-    std::ranges::transform(container, std::ranges::begin(scores), objFunction);
+    std::ranges::transform(
+        container, 
+        std::ranges::begin(scores), 
+        objFunction);
   }
 
 };

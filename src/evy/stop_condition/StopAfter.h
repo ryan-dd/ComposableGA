@@ -16,7 +16,7 @@ public:
 
   bool operator()()
   {
-    return currentIteration++ > numIterations;
+    return ++currentIteration >= numIterations;
   }
 };
 

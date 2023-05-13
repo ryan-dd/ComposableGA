@@ -8,12 +8,9 @@
 namespace evy
 {
 
-template<typename T>
-using DefaultTwoPointSwapFunction = decltype(&evy::aggregateMemberSwap<T>);
-
 template<
   typename ChromosomeType,
-  std::invocable<ChromosomeType&, ChromosomeType&, std::size_t> SwapFunction = DefaultTwoPointSwapFunction<ChromosomeType>,
+  std::invocable<ChromosomeType&, ChromosomeType&, std::size_t> SwapFunction = decltype(&aggregateMemberSwap<ChromosomeType>),
   typename IndexRng = FastIndexRng
 >
 class TwoPointCrossover
