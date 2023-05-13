@@ -42,7 +42,7 @@ We can then define a basic mutation strategy for our chromosomes where we define
 We use the IndependentMutation functor, which takes in the functions as arguments and has a call operator that matches the interface below:
 
 ```C++
-void myMutateStrategy(ChromosomeType& chromosome, std::size_t index)
+void customMutateStrategy(ChromosomeType& chromosome, std::size_t index)
 ```
 
 Usage:
@@ -68,7 +68,7 @@ auto mutationStrategy = evy::IndependentMutation(mutateFunctions);
 The crossover strategy should match the interface of:
 
 ```C++
-void myCrossover(ChromosomeType& c1, ChromosomeType& c2);
+void customCrossover(ChromosomeType& c1, ChromosomeType& c2);
 ```
 
 In this example, we use the two point crossover strategy provided by evy.
@@ -88,10 +88,8 @@ ChromosomeContainer chromosomes{};
 // Initialize chromosomes with the mutation functions
 for(auto& chromosome: chromosomes)
 {
-  for(const auto& mutateFunction: mutateFunctions)
-  {
-    mutateFunction(chromosome);
-  }
+  mutationStrategy(chromosome, 0);
+  mutationStrategy(chromosome, 1);
 }
 ```
 
