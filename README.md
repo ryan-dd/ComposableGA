@@ -40,14 +40,13 @@ ScoreType objFunction(const ChromosomeType& chromosome)
 Notice how no inheritance of base classes are required, just simply declaring and using types and functions.
 
 We can then define a basic mutation strategy for our chromosomes where we define a mutation function for the `ChromosomeType` members `x` and `y`.
-We use the IndependentMutation functor, which takes in the functions as arguments and has a call operator that matches the interface below:
+We use the `IndependentMutation` functor, which takes in the functions as arguments and has a call operator that matches the interface below:
 
 ```C++
 void customMutateStrategy(ChromosomeType& chromosome, std::size_t index)
 ```
 
 Usage:
-
 
 ```C++
 constexpr auto min = -10.0;
