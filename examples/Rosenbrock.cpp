@@ -62,7 +62,7 @@ int main()
   auto crossoverStrategy = evy::TwoPointCrossover<Rosenbrock::ChromosomeType>{};
 
   // Initialize chromosomes
-  constexpr auto numChromosomes{10};
+  constexpr auto numChromosomes{10000};
 
   using ChromosomeContainer = std::array<Rosenbrock::ChromosomeType, numChromosomes>;
   ChromosomeContainer chromosomes{};
@@ -74,7 +74,7 @@ int main()
     mutationStrategy(chromosome, 1);
   }
 
-  constexpr auto numIterations{1};
+  constexpr auto numIterations{100};
   constexpr auto tournamentSize{5};
   constexpr auto mutateProbability{0.8};
   constexpr auto crossoverProbability{0.4};

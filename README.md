@@ -96,7 +96,7 @@ for(auto& chromosome: chromosomes)
 We can then define the parameters necessary and run the genetic algorithm, with the steps being: Evaluate, selection, crossover, and mutation.
 
 ```C++
-constexpr auto numIterations{10000};
+constexpr auto numIterations{100};
 constexpr auto tournamentSize{5};
 constexpr auto mutateProbability{0.8};
 constexpr auto crossoverProbability{0.4};
