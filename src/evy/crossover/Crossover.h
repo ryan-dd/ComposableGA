@@ -40,7 +40,7 @@ public:
       if(chromosomePair.size() != 2) 
       {
         continue;
-      }        
+      }
 
       if (generator() < crossoverProbability())
       {
