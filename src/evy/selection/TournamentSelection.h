@@ -17,13 +17,13 @@ requires std::totally_ordered<std::ranges::range_value_t<ScoreContainer>>
 class SelectWithTournament
 {
 private:
-  const ScoreContainer& scores;
+  std::reference_wrapper<const ScoreContainer> scoresRef;
   std::size_t tournamentSize;
   using ScoreType = std::ranges::range_value_t<ScoreContainer>;
   using IndexType = std::size_t;
 public:
   SelectWithTournament(const ScoreContainer& scores, std::size_t tournamentSize): 
-    scores(scores),
+    scoresRef(scores),
     tournamentSize(tournamentSize)
   {
   }
@@ -31,6 +31,7 @@ public:
   template<IndexableRange ChromosomeContainer>
   void operator()(ChromosomeContainer& chromosomes)
   {
+    auto& scores{ scoresRef.get() };
     assert(chromosomes.size() == scores.size());
 
     auto oldChromosomes = chromosomes;

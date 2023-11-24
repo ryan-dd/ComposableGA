@@ -12,7 +12,7 @@ template<std::ranges::range ScoreContainer, typename ObjFunction>
 class Evaluate
 {
 private:
-  ScoreContainer& scores;
+  std::reference_wrapper<ScoreContainer> scores;
   ObjFunction objFunction;
 public:
   Evaluate(ScoreContainer& scores, ObjFunction objFunction): 
@@ -28,7 +28,7 @@ public:
   {
     std::ranges::transform(
         container, 
-        std::ranges::begin(scores), 
+        std::ranges::begin(scores.get()), 
         objFunction);
   }
 
