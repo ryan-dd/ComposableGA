@@ -33,19 +33,18 @@ public:
            std::ranges::range_value_t<ChromosomeContainer>&> // Matches signature of doCrossover(...)
   void operator()(ChromosomeContainer& chromosomes)
   {
-    for(auto it1 = std::ranges::begin(chromosomes); 
-        it1 != std::ranges::end(chromosomes); 
-        std::ranges::advance(it1, 2))
+    for(const auto& chromosomePair : chromosomes | std::views::chunk(2))
     {
-      auto it2{++it1};
-      if(it2 == std::ranges::end(chromosomes))
+      // If "chromosomes" are passed in with an odd size, we can't do crossover on the last element 
+      // Since it has no matching pair
+      if(chromosomePair.size() != 2) 
       {
-        return;
-      }
+        continue;
+      }        
 
       if (generator() < crossoverProbability())
       {
-        doCrossover(*it1, *it2);
+        doCrossover(chromosomePair[0], chromosomePair[1]);
       }
     }
   }
