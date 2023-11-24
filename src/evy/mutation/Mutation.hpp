@@ -1,7 +1,7 @@
 #ifndef EVY_MUTATION_H
 #define EVY_MUTATION_H
 
-#include "../rng/StdProbabilityRng.h"
+#include "../rng/StdProbabilityRng.hpp"
 
 #include <concepts>
 #include <ranges>

@@ -1,8 +1,8 @@
 #ifndef EVY_TOURNAMENT_SELECTION_H
 #define EVY_TOURNAMENT_SELECTION_H
 
-#include "evy/rng/FastIndexRng.h"
-#include "evy/util/concepts/IndexableRange.h"
+#include "evy/rng/FastIndexRng.hpp"
+#include "evy/util/concepts/IndexableRange.hpp"
 
 #include <limits>
 #include <array>

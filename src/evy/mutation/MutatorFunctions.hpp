@@ -1,9 +1,9 @@
 #ifndef EVY_MUTATOR_FUNCTIONS_H
 #define EVY_MUTATOR_FUNCTIONS_H
 
-#include "../util/concepts/TupleLike.h"
-#include "../util/concepts/ValueMatching.h"
-#include "../util/concepts/IntType.h"
+#include "../util/concepts/TupleLike.hpp"
+#include "../util/concepts/ValueMatching.hpp"
+#include "../util/concepts/IntType.hpp"
 
 #include <random>
 #include <type_traits>
