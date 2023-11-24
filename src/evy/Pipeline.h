@@ -12,14 +12,13 @@ concept StopCondition = requires(T func)
   {func()} -> std::convertible_to<bool>;
 };
 
-class Pipeline
+namespace Pipeline
 {
-public:
   template<
     typename ChromosomeContainer,
     std::invocable<ChromosomeContainer&>... PipelineFunctions
   >
-  static void run(
+  void run(
       ChromosomeContainer&& chromosomes, 
       StopCondition auto&& shouldStop, 
       PipelineFunctions&&... functions)
