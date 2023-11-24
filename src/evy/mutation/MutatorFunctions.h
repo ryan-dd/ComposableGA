@@ -9,7 +9,10 @@
 #include <type_traits>
 #include <boost/pfr.hpp>
 
-namespace
+namespace evy
+{
+
+namespace detail
 {
   template<typename ValueType>
   requires (evy::IntType<ValueType> || std::is_floating_point_v<ValueType>)
@@ -26,9 +29,6 @@ namespace
   }
 }
 
-namespace evy
-{
-
 template<std::size_t Index, typename ValueType> 
 requires (evy::IntType<ValueType> || std::is_floating_point_v<ValueType>)
 class MutateNumeric
@@ -38,7 +38,7 @@ public:
     min{min},
     max{max},
     rng(std::random_device{}()),
-    generator{getGenerator(min, max)}
+    generator{detail::getGenerator(min, max)}
   {
 
   }
@@ -69,7 +69,7 @@ private:
   ValueType min;
   ValueType max;
   std::mt19937 rng;
-  decltype(std::function{getGenerator<ValueType>})::result_type generator;
+  decltype(std::function{detail::getGenerator<ValueType>})::result_type generator;
 };
 
 }
