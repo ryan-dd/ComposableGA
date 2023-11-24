@@ -42,24 +42,24 @@ ScoreType objFunction(const ChromosomeType& chromosome)
 
 int main()
 {
-  auto start = std::chrono::high_resolution_clock::now();
+  auto start{std::chrono::high_resolution_clock::now()};
 
   // Initialize mutation strategy
   using MutatorFunctionType = std::function<void(Rosenbrock::ChromosomeType&)>;
 
   // One mutate function per parameter, index 0 for "x" and index 1 for "y"
-  constexpr auto min = -10.0;
-  constexpr auto max = 10.0;
+  constexpr auto min{-10.0};
+  constexpr auto max{10.0};
   const std::array<MutatorFunctionType, 2> mutateFunctions
   {
     evy::MutateNumeric<0, double>(min, max),
     evy::MutateNumeric<1, double>(min, max)
   };
 
-  auto mutationStrategy = evy::IndependentMutation(mutateFunctions);
+  auto mutationStrategy{evy::IndependentMutation(mutateFunctions)};
 
   // Initialize crossover strategy
-  auto crossoverStrategy = evy::TwoPointCrossover<Rosenbrock::ChromosomeType>{};
+  auto crossoverStrategy{evy::TwoPointCrossover<Rosenbrock::ChromosomeType>{}};
 
   // Initialize chromosomes
   constexpr auto numChromosomes{10000};
@@ -104,10 +104,10 @@ int main()
   auto bestChromosomeIndex{std::ranges::distance(
       std::ranges::begin(scores),
       std::ranges::max_element(scores))};
-  auto bestChromosome = chromosomes[static_cast<std::size_t>(bestChromosomeIndex)];
+  auto bestChromosome{chromosomes[static_cast<std::size_t>(bestChromosomeIndex)]};
 
-  auto end = std::chrono::high_resolution_clock::now();
-  auto millisecondsElapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+  auto end{std::chrono::high_resolution_clock::now()};
+  auto millisecondsElapsed{std::chrono::duration_cast<std::chrono::milliseconds>(end - start)};
 
   std::cout << "Time elapsed:\n ";
   std::cout << millisecondsElapsed.count() << "ms\n";
