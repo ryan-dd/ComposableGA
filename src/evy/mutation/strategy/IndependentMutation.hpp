@@ -4,6 +4,13 @@
 namespace evy
 {
 
+
+template<typename IndexableFunctions, typename Arg>
+concept IndexableFunctionsCallableBy = requires (IndexableFunctions functions, Arg arg)
+{
+  functions[0](arg);
+};
+
 template<typename MutateFunctions>
 class IndependentMutation
 {
@@ -14,14 +21,11 @@ public:
   }
 
   template<typename ChromosomeType>
-    requires requires (MutateFunctions mutateFunctions, ChromosomeType chromosome)
+    requires IndexableFunctionsCallableBy<MutateFunctions, ChromosomeType>
+    void operator()(ChromosomeType& chromosome, std::size_t index)
     {
-      mutateFunctions[0](chromosome);
+      mutateFunctions[index](chromosome);
     }
-  void operator()(ChromosomeType& chromosome, std::size_t index)
-  {
-    mutateFunctions[index](chromosome);
-  }
 
 private:
   MutateFunctions mutateFunctions;
