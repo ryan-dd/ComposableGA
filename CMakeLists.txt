@@ -10,7 +10,7 @@ project(evy
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
 if(PROJECT_IS_TOP_LEVEL) 
-  set(CMAKE_CXX_STANDARD 20)
+  set(CMAKE_CXX_STANDARD 23)
   set(CMAKE_CXX_STANDARD_REQUIRED ON)
   set(CMAKE_CXX_EXTENSIONS OFF)
 endif()
@@ -26,7 +26,7 @@ target_include_directories( evy
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
-target_compile_features(evy INTERFACE cxx_std_20)
+target_compile_features(evy INTERFACE cxx_std_23)
 
 find_package(Boost REQUIRED) # Requires header-only boost::pfr
 target_include_directories(evy INTERFACE ${Boost_INCLUDE_DIRS})

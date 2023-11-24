@@ -1,6 +1,6 @@
 # Evy
 
-A header-only, composable evolutionary algorithm toolkit taking advantage of the latest C++20 features. See `examples` for more details and documentation.
+A header-only, composable evolutionary algorithm toolkit taking advantage of the latest C++23 features. See `examples` for more details and documentation.
 
 Out of the box, supports running genetic algorithm with custom aggregate types and objective functions. Heavily depends on concepts and templates to avoid any inheritance boilerplate code and allow for customization flexibility.
 
