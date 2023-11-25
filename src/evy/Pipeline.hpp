@@ -18,7 +18,7 @@ namespace Pipeline
     typename ChromosomeContainer,
     std::invocable<ChromosomeContainer&>... PipelineFunctions
   >
-  void run(
+  constexpr void run(
       ChromosomeContainer&& chromosomes, 
       StopCondition auto&& shouldStop, 
       PipelineFunctions&&... functions)

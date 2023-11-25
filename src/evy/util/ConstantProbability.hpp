@@ -8,12 +8,12 @@ template<typename ValueType>
 class ConstantProbability
 {
 public:
-  ConstantProbability(ValueType threshold):
+  constexpr explicit ConstantProbability(ValueType threshold):
     threshold{threshold}
   {
   }
 
-  ValueType operator()()
+  constexpr ValueType operator()()
   {
     return threshold;
   }

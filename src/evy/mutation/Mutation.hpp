@@ -13,7 +13,7 @@ public:
   template<std::ranges::range ChromosomeContainer>
   requires std::invocable<MutationStrategy, 
            std::ranges::range_value_t<ChromosomeContainer>&>
-  void operator()(ChromosomeContainer& chromosomes)
+  constexpr void operator()(ChromosomeContainer& chromosomes)
   {
     for(auto& chromosome: chromosomes)
     {

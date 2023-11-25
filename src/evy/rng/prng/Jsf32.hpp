@@ -12,7 +12,7 @@ class jsf32
 
   static inline uint32_t rot(uint32_t x, uint32_t k) noexcept { return (((x) << (k)) | ((x) >> (32 - (k)))); }
 public:
-  explicit jsf32(uint32_t seed = 0xdeadbeef) noexcept
+  constexpr explicit jsf32(uint32_t seed = 0xdeadbeef) noexcept
   {
     a = 0xf1ea5eed;
     b = c = d = seed;
@@ -20,7 +20,7 @@ public:
       (*this)();
   }
 
-  inline uint32_t operator()() noexcept
+  constexpr inline uint32_t operator()() noexcept
   {
     uint32_t e = a - rot(b, 27);
     a = b ^ rot(c, 17);

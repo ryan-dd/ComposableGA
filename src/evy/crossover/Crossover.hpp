@@ -24,7 +24,7 @@ public:
   requires std::invocable<CrossoverStrategy, 
            std::ranges::range_value_t<ChromosomeContainer>&, 
            std::ranges::range_value_t<ChromosomeContainer>&>
-  void operator()(ChromosomeContainer& chromosomes)
+  constexpr void operator()(ChromosomeContainer& chromosomes)
   {
     for(const auto& chromosomePair : chromosomes | std::views::chunk(2))
     {

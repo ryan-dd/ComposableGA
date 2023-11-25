@@ -15,7 +15,7 @@ private:
   std::reference_wrapper<ScoreContainer> scores;
   ObjFunction objFunction;
 public:
-  Evaluate(ScoreContainer& scores, ObjFunction objFunction): 
+  constexpr Evaluate(ScoreContainer& scores, ObjFunction objFunction): 
     scores(scores),
     objFunction(std::move(objFunction))
   {}
@@ -24,7 +24,7 @@ public:
   requires std::convertible_to<
             std::invoke_result_t<ObjFunction, std::ranges::range_value_t<ChromosomeContainer>&>, 
             std::ranges::range_value_t<ScoreContainer>>
-  void operator()(const ChromosomeContainer& container)
+  constexpr void operator()(const ChromosomeContainer& container)
   {
     std::ranges::transform(
         container, 

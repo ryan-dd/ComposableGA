@@ -19,7 +19,7 @@ template<
 class IndependentMutation
 {
 public:
-  explicit IndependentMutation(
+  constexpr IndependentMutation(
       MutateFunctions mutateFunctions, 
       MutationProbability mutationProbability,
       ProbabilityGenerator generator = StdProbabilityRng{})
@@ -31,7 +31,7 @@ public:
 
   template<typename ChromosomeType>
   requires TupleLike<ChromosomeType> || std::is_aggregate_v<ChromosomeType>
-  void operator()(ChromosomeType& chromosome)
+  constexpr void operator()(ChromosomeType& chromosome)
   {
     auto shouldMutate = [this](){ return generator() < mutationProbability(); };
     conditionallyApplyFunctions(chromosome, mutateFunctions, shouldMutate);

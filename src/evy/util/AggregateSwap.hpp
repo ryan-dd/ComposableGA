@@ -20,7 +20,7 @@ template<typename Aggregate, typename Indices = std::make_index_sequence<boost::
 struct AggregateSwapFuncTable;
 
 template<typename Aggregate, std::size_t Index>
-void aggregateMemberSwap(Aggregate& t1, Aggregate& t2) noexcept
+constexpr void aggregateMemberSwap(Aggregate& t1, Aggregate& t2) noexcept
 {
   std::ranges::swap(boost::pfr::get<Index>(t1), boost::pfr::get<Index>(t2));
 }

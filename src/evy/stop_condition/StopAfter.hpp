@@ -11,10 +11,10 @@ private:
   int numIterations{0};
 
 public:
-  StopAfter(decltype(numIterations) numIterations): numIterations(numIterations) 
+  constexpr explicit StopAfter(decltype(numIterations) numIterations): numIterations(numIterations) 
   {}
 
-  bool operator()()
+  constexpr bool operator()()
   {
     return ++currentIteration >= numIterations;
   }

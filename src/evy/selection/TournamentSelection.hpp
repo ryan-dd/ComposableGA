@@ -22,14 +22,14 @@ private:
   using ScoreType = std::ranges::range_value_t<ScoreContainer>;
   using IndexType = std::size_t;
 public:
-  SelectWithTournament(const ScoreContainer& scores, std::size_t tournamentSize): 
+  constexpr SelectWithTournament(const ScoreContainer& scores, std::size_t tournamentSize): 
     scoresRef(scores),
     tournamentSize(tournamentSize)
   {
   }
 
   template<IndexableRange ChromosomeContainer>
-  void operator()(ChromosomeContainer& chromosomes)
+  constexpr void operator()(ChromosomeContainer& chromosomes)
   {
     auto& scores{ scoresRef.get() };
     assert(chromosomes.size() == scores.size());

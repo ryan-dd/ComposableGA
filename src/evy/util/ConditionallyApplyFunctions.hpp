@@ -12,7 +12,7 @@ namespace detail
 
 template<std::size_t index, typename InputType>
 requires TupleLike<InputType> || std::is_aggregate_v<InputType>
-void conditionallyApplyFunction(InputType& input, TupleLike auto& tupleOfFunctions, std::invocable auto& condition)
+constexpr void conditionallyApplyFunction(InputType& input, TupleLike auto& tupleOfFunctions, std::invocable auto& condition)
 {
     if(!condition())
     {
@@ -33,7 +33,7 @@ void conditionallyApplyFunction(InputType& input, TupleLike auto& tupleOfFunctio
 
 
 template <typename InputType, std::size_t... Idx>
-void conditionallyApplyFunctions(InputType& input, TupleLike auto& tupleOfFunctions, std::invocable auto& condition, std::index_sequence<Idx...>) {
+constexpr void conditionallyApplyFunctions(InputType& input, TupleLike auto& tupleOfFunctions, std::invocable auto& condition, std::index_sequence<Idx...>) {
     (conditionallyApplyFunction<Idx>(input, tupleOfFunctions, condition), ...);
 }
 
@@ -42,7 +42,7 @@ void conditionallyApplyFunctions(InputType& input, TupleLike auto& tupleOfFuncti
 template <typename InputType, TupleLike TupleOfFunctions>
 requires (TupleLike<InputType> || std::is_aggregate_v<InputType>)
 // TODO validate TupleOfFunctions function type at each tuple index can operate on input type at same index
-void conditionallyApplyFunctions(InputType& input, TupleOfFunctions& tupleOfFunctions, std::invocable auto& condition) {
+constexpr void conditionallyApplyFunctions(InputType& input, TupleOfFunctions& tupleOfFunctions, std::invocable auto& condition) {
     
     if constexpr (TupleLike<InputType>)
     {

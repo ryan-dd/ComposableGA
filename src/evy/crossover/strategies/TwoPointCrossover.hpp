@@ -16,7 +16,7 @@ template<
 class TwoPointCrossover
 {
 public:
-  TwoPointCrossover(
+  constexpr TwoPointCrossover(
       SwapStrategy swapStrategy = &aggregateMemberSwap<ChromosomeType>,
       IndexRng indexRng = FastIndexRng(compileTimeSize<ChromosomeType>())
     ):
@@ -25,7 +25,7 @@ public:
   {
   }
 
-  void operator()(ChromosomeType& first, ChromosomeType& second)
+  constexpr void operator()(ChromosomeType& first, ChromosomeType& second)
   {
     const auto crossover_index1{indexRng()};
     const auto crossover_index2{indexRng()};

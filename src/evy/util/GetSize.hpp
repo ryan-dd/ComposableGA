@@ -19,7 +19,7 @@ constexpr std::size_t compileTimeSize()
 }
 
 template<typename ChromosomeType>
-std::size_t getSize(ChromosomeType& chromosome)
+constexpr std::size_t getSize(ChromosomeType& chromosome)
 {
   if constexpr(std::is_aggregate_v<ChromosomeType>)
   {
