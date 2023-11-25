@@ -8,10 +8,7 @@ template<typename MutationStrategy>
 class Mutation
 {
 public:
-  Mutation( MutationStrategy mutationStrategy):
-    mutationStrategy(std::move(mutationStrategy))
-  {
-  }
+  MutationStrategy mutationStrategy;
 
   template<std::ranges::range ChromosomeContainer>
   requires std::invocable<MutationStrategy, 
@@ -23,9 +20,6 @@ public:
       mutationStrategy(chromosome);
     }
   }
-
-private:
-  MutationStrategy mutationStrategy;
 };
 
 }
