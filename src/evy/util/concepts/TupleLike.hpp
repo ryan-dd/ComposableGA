@@ -37,7 +37,7 @@ concept TupleLike =
     >;
   } && 
   // checks each tuple element has required functionality
-  constexpr []<std::size_t... N>(std::index_sequence<N...>) 
+  []<std::size_t... N>(std::index_sequence<N...>) 
   { 
     return (detail::TupleElementAtIndex<T, N> && ...); 
   }(std::make_index_sequence<std::tuple_size_v<T>>());
