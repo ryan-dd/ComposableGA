@@ -28,7 +28,7 @@ concept TupleLike =
     // tuple_size::type is defined
     typename std::tuple_size<T>::type; 
     // tuple_size_v returns std::size_t
-    { std::tuple_size_v<T> } -> std::same_as<std::size_t>;
+    { std::tuple_size_v<T> } -> std::convertible_to<std::size_t>;
 
     // tuple_size inherits from integral_constant<std::size_t, N>
     requires std::derived_from<
