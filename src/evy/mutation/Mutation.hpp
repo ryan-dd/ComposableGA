@@ -1,5 +1,5 @@
-#ifndef EVY_MUTATION_H
-#define EVY_MUTATION_H
+#ifndef EVY_MUTATION_HPP
+#define EVY_MUTATION_HPP
 
 namespace evy
 {

@@ -1,5 +1,5 @@
-#ifndef EVY_PIPELINE_H
-#define EVY_PIPELINE_H
+#ifndef EVY_PIPELINE_HPP
+#define EVY_PIPELINE_HPP
 
 #include <concepts>
 

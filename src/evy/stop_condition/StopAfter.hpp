@@ -1,5 +1,5 @@
-#ifndef EVY_STOP_AFTER_H
-#define EVY_STOP_AFTER_H
+#ifndef EVY_STOP_AFTER_HPP
+#define EVY_STOP_AFTER_HPP
 
 namespace evy
 {

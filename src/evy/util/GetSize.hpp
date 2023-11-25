@@ -1,5 +1,5 @@
-#ifndef EVY_GET_SIZE_H
-#define EVY_GET_SIZE_H
+#ifndef EVY_GET_SIZE_HPP
+#define EVY_GET_SIZE_HPP
 
 namespace evy
 {

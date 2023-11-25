@@ -1,5 +1,5 @@
-#ifndef EVY_TWO_POINT_CROSSOVER_H
-#define EVY_TWO_POINT_CROSSOVER_H
+#ifndef EVY_TWO_POINT_CROSSOVER_HPP
+#define EVY_TWO_POINT_CROSSOVER_HPP
 
 #include "../../util/GetSize.hpp"
 #include "../../util/AggregateSwap.hpp"

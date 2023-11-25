@@ -1,5 +1,5 @@
-#ifndef EVY_FAST_INDEX_RNG_H
-#define EVY_FAST_INDEX_RNG_H
+#ifndef EVY_FAST_INDEX_RNG_HPP
+#define EVY_FAST_INDEX_RNG_HPP
 
 #include "prng/xoshiro256ss.hpp"
 #include "distributions/IntMult.hpp"

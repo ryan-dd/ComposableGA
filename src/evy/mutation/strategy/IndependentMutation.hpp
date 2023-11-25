@@ -1,5 +1,5 @@
-#ifndef EVY_INDEPENDENT_MUTATION_H
-#define EVY_INDEPENDENT_MUTATION_H
+#ifndef EVY_INDEPENDENT_MUTATION_HPP
+#define EVY_INDEPENDENT_MUTATION_HPP
 
 #include "evy/rng/StdProbabilityRng.hpp"
 #include "evy/util/concepts/TupleLike.hpp"

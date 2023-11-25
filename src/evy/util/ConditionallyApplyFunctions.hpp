@@ -1,5 +1,5 @@
-#ifndef CONDITIONALLY_APPLY_FUNCTIONS_H
-#define CONDITIONALLY_APPLY_FUNCTIONS_H
+#ifndef CONDITIONALLY_APPLY_FUNCTIONS_HPP
+#define CONDITIONALLY_APPLY_FUNCTIONS_HPP
 
 #include "boost/pfr/tuple_size.hpp"
 #include "boost/pfr/core.hpp"

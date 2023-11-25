@@ -1,5 +1,5 @@
-#ifndef EVY_XOSHIRO_256SS_H
-#define EVY_XOSHIRO_256SS_H
+#ifndef EVY_XOSHIRO_256SS_HPP
+#define EVY_XOSHIRO_256SS_HPP
 
 #include <cstdint>
 #include <random>

@@ -1,5 +1,5 @@
-#ifndef EVY_CROSSOVER_H
-#define EVY_CROSSOVER_H
+#ifndef EVY_CROSSOVER_HPP
+#define EVY_CROSSOVER_HPP
 
 #include "../rng/StdProbabilityRng.hpp"
 

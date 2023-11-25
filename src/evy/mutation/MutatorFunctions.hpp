@@ -1,5 +1,5 @@
-#ifndef EVY_MUTATOR_FUNCTIONS_H
-#define EVY_MUTATOR_FUNCTIONS_H
+#ifndef EVY_MUTATOR_FUNCTIONS_HPP
+#define EVY_MUTATOR_FUNCTIONS_HPP
 
 #include "../util/concepts/TupleLike.hpp"
 #include "../util/concepts/ValueMatching.hpp"

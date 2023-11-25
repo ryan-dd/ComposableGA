@@ -1,5 +1,5 @@
-#ifndef EVY_TOURNAMENT_SELECTION_H
-#define EVY_TOURNAMENT_SELECTION_H
+#ifndef EVY_TOURNAMENT_SELECTION_HPP
+#define EVY_TOURNAMENT_SELECTION_HPP
 
 #include "evy/rng/FastIndexRng.hpp"
 #include "evy/util/concepts/IndexableRange.hpp"

@@ -1,5 +1,5 @@
-#ifndef EVY_AGGREGATE_SWAP_H
-#define EVY_AGGREGATE_SWAP_H
+#ifndef EVY_AGGREGATE_SWAP_HPP
+#define EVY_AGGREGATE_SWAP_HPP
 
 #include <tuple>
 #include <utility>

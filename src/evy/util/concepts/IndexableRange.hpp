@@ -1,5 +1,5 @@
-#ifndef EVY_INDEXABLE_RANGE_H
-#define EVY_INDEXABLE_RANGE_H
+#ifndef EVY_INDEXABLE_RANGE_HPP
+#define EVY_INDEXABLE_RANGE_HPP
 
 namespace evy
 {

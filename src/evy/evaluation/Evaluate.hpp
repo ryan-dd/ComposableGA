@@ -1,5 +1,5 @@
-#ifndef EVY_EVALUATE_H
-#define EVY_EVALUATE_H
+#ifndef EVY_EVALUATE_HPP
+#define EVY_EVALUATE_HPP
 
 #include <ranges>
 #include <concepts>

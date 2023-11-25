@@ -1,5 +1,5 @@
-#ifndef EVY_INT_TYPE_H
-#define EVY_INT_TYPE_H
+#ifndef EVY_INT_TYPE_HPP
+#define EVY_INT_TYPE_HPP
 
 #include <type_traits>
 namespace evy 
