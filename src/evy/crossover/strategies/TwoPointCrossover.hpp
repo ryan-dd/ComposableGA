@@ -10,17 +10,17 @@ namespace evy
 
 template<
   typename ChromosomeType,
-  std::invocable<ChromosomeType&, ChromosomeType&, std::size_t> SwapFunction = decltype(&aggregateMemberSwap<ChromosomeType>),
+  std::invocable<ChromosomeType&, ChromosomeType&, std::size_t> SwapStrategy = decltype(&aggregateMemberSwap<ChromosomeType>),
   typename IndexRng = FastIndexRng
 >
 class TwoPointCrossover
 {
 public:
   TwoPointCrossover(
-      SwapFunction swapFunction = &aggregateMemberSwap<ChromosomeType>,
+      SwapStrategy swapStrategy = &aggregateMemberSwap<ChromosomeType>,
       IndexRng indexRng = FastIndexRng(compileTimeSize<ChromosomeType>())
     ):
-    doSwap(std::move(swapFunction)),
+    swapStrategy(std::move(swapStrategy)),
     indexRng(std::move(indexRng))
   {
   }
@@ -34,12 +34,12 @@ public:
 
     for(auto chromosomeIndex{beginIndex}; chromosomeIndex < endIndex + 1; ++chromosomeIndex)
     {
-      doSwap(first, second, chromosomeIndex);
+      swapStrategy(first, second, chromosomeIndex);
     }
   }
 
 private:
-  SwapFunction doSwap;
+  SwapStrategy swapStrategy;
   IndexRng indexRng;
 };
 
