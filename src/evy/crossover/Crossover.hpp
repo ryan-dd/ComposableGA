@@ -16,21 +16,14 @@ template<
 class Crossover
 {
 public:
-  Crossover(
-      CrossoverProbability crossoverProbability, 
-      CrossoverStrategy crossoverStrategy,
-      ProbabilityGenerator generator = StdProbabilityRng{}
-    ):
-    crossoverProbability{std::move(crossoverProbability)},
-    doCrossover{std::move(crossoverStrategy)},
-    generator{std::move(generator)}
-  {
-  }
+  CrossoverProbability crossoverProbability;
+  CrossoverStrategy crossoverStrategy;
+  ProbabilityGenerator generator = ProbabilityGenerator{};
 
   template<std::ranges::range ChromosomeContainer>
   requires std::invocable<CrossoverStrategy, 
            std::ranges::range_value_t<ChromosomeContainer>&, 
-           std::ranges::range_value_t<ChromosomeContainer>&> // Matches signature of doCrossover(...)
+           std::ranges::range_value_t<ChromosomeContainer>&>
   void operator()(ChromosomeContainer& chromosomes)
   {
     for(const auto& chromosomePair : chromosomes | std::views::chunk(2))
@@ -44,15 +37,10 @@ public:
 
       if (generator() < crossoverProbability())
       {
-        doCrossover(chromosomePair[0], chromosomePair[1]);
+        crossoverStrategy(chromosomePair[0], chromosomePair[1]);
       }
     }
   }
-
-private:
-  CrossoverProbability crossoverProbability;
-  CrossoverStrategy doCrossover;
-  ProbabilityGenerator generator;
 };
 
 } // namespace evy
