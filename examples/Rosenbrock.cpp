@@ -45,18 +45,17 @@ int main()
   auto start{std::chrono::high_resolution_clock::now()};
 
   // Initialize mutation strategy
-  using MutatorFunctionType = std::function<void(Rosenbrock::ChromosomeType&)>;
-
-  // One mutate function per parameter, index 0 for "x" and index 1 for "y"
   constexpr auto min{-10.0};
   constexpr auto max{10.0};
-  const std::array<MutatorFunctionType, 2> mutateFunctions
+  // One mutate function per parameter, index 0 for "x" and index 1 for "y"
+  std::array mutateFunctions
   {
-    evy::MutateNumeric<0, double>(min, max),
-    evy::MutateNumeric<1, double>(min, max)
+    evy::MutateNumeric<double>(min, max),
+    evy::MutateNumeric<double>(min, max)
   };
 
-  auto mutationStrategy{evy::IndependentMutation(mutateFunctions)};
+  constexpr auto mutateProbability{0.8};
+  auto mutationStrategy = evy::IndependentMutation(mutateFunctions, evy::ConstantProbability(mutateProbability));
 
   // Initialize crossover strategy
   auto crossoverStrategy{evy::TwoPointCrossover<Rosenbrock::ChromosomeType>{}};
@@ -70,13 +69,12 @@ int main()
   // Initialize chromosomes with the mutation functions
   for(auto& chromosome: chromosomes)
   {
-    mutationStrategy(chromosome, 0);
-    mutationStrategy(chromosome, 1);
+    mutateFunctions[0](chromosome.x);
+    mutateFunctions[1](chromosome.y);
   }
 
   constexpr auto numIterations{100};
   constexpr auto tournamentSize{5};
-  constexpr auto mutateProbability{0.8};
   constexpr auto crossoverProbability{0.4};
 
   using ScoreContainer = std::array<Rosenbrock::ScoreType, numChromosomes>;
@@ -88,13 +86,8 @@ int main()
       // Pipeline start
       evy::Evaluate(scores, Rosenbrock::objFunction),
       evy::SelectWithTournament(scores, tournamentSize),
-      evy::Crossover(
-        evy::ConstantProbability(crossoverProbability), 
-        crossoverStrategy),
-      evy::Mutation(
-        evy::ConstantProbability(mutateProbability), 
-        mutationStrategy,
-        evy::compileTimeSize<Rosenbrock::ChromosomeType>())
+      evy::Crossover(evy::ConstantProbability(crossoverProbability), crossoverStrategy),
+      evy::Mutation(mutationStrategy)
       // Pipeline end
   );
 

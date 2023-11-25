@@ -29,7 +29,7 @@ namespace detail
   }
 }
 
-template<std::size_t Index, typename ValueType> 
+template<typename ValueType> 
 requires (evy::IntType<ValueType> || std::is_floating_point_v<ValueType>)
 class MutateNumeric
 {
@@ -43,26 +43,9 @@ public:
 
   }
 
-  template<typename ChromosomeType>
-  requires 
-    TupleWithMemberTypeAtIndex<ChromosomeType, ValueType, Index> || 
-    IndexableWithValue<ChromosomeType, ValueType> ||
-    AggregateWithMemberTypeAtIndex<ChromosomeType, ValueType, Index>
-  void operator()(ChromosomeType& chromosome)
+  void operator()(ValueType& value)
   {
-    if constexpr(AggregateWithMemberTypeAtIndex<ChromosomeType, ValueType, Index>)
-    {
-      boost::pfr::get<Index>(chromosome) = generator(rng);
-    }
-    else if constexpr(TupleWithMemberTypeAtIndex<ChromosomeType, ValueType, Index>)
-    {
-      using std::get;
-      get<Index>(chromosome) = generator(rng);
-    }
-    else if constexpr( IndexableWithValue<ChromosomeType, ValueType> )
-    {
-      chromosome[Index] = generator(rng);
-    }
+    value = generator(rng);
   }
 
 private:
