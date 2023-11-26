@@ -16,7 +16,7 @@ template<
 class TwoPointCrossover
 {
 public:
-  SwapStrategy swapStrategy{ SwapStrategy{} };
+  SwapStrategy swapStrategy{ &aggregateMemberSwap<ChromosomeType> };
   IndexRng indexRng{ FastIndexRng(compileTimeSize<ChromosomeType>()) };
 
   constexpr void operator()(ChromosomeType& first, ChromosomeType& second)
