@@ -26,11 +26,12 @@ public:
            std::ranges::range_value_t<ChromosomeContainer>&>
   constexpr void operator()(ChromosomeContainer& chromosomes)
   {
-    for(const auto& chromosomePair : chromosomes | std::views::chunk(2))
+    constexpr auto pairSize{ 2 };
+    for(const auto& chromosomePair : chromosomes | std::views::chunk(pairSize))
     {
       // If "chromosomes" are passed in with an odd size, we can't do crossover on the last element 
-      // Since it has no matching pair
-      if(chromosomePair.size() != 2) 
+      // since it has no matching pair
+      if(chromosomePair.size() != pairSize) 
       {
         continue;
       }
