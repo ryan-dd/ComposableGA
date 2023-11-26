@@ -17,6 +17,7 @@
 #include <tuple>
 #include <utility>
 
+// Define the chromosome type and the objective function in a separate namespace for clarity
 namespace Rosenbrock
 {
 
@@ -40,13 +41,11 @@ ScoreType objFunction(const ChromosomeType& chromosome)
 
 }
 
-int main()
+auto getMutateStrategy(double mutateProbability)
 {
-  auto start{std::chrono::high_resolution_clock::now()};
-
-  // Initialize mutation strategy
   constexpr auto min{-10.0};
   constexpr auto max{10.0};
+
   // One mutate function per parameter, index 0 for "x" and index 1 for "y"
   std::array mutateFunctions
   {
@@ -54,31 +53,34 @@ int main()
     evy::MutateNumeric<double>(min, max)
   };
 
-  constexpr auto mutateProbability{0.8};
-  auto mutationStrategy = evy::IndependentMutation(mutateFunctions, evy::ConstantProbability(mutateProbability));
+  return evy::IndependentMutation(mutateFunctions, evy::ConstantProbability(mutateProbability));
+}
 
-  // Initialize crossover strategy
-  auto crossoverStrategy{evy::TwoPointCrossover<Rosenbrock::ChromosomeType>{}};
+void initializeChromosome(std::ranges::range auto& chromosomes)
+{
+  constexpr auto min{-10.0};
+  constexpr auto max{10.0};
+  evy::MutateNumeric<double> mutator(min, max);
+  for(auto& chromosome: chromosomes)
+  {
+    mutator(chromosome.x);
+    mutator(chromosome.y);
+  }
+}
+
+int main()
+{
+  auto start{std::chrono::high_resolution_clock::now()};
 
   // Initialize chromosomes
   constexpr auto numChromosomes{10000};
-
-  using ChromosomeContainer = std::array<Rosenbrock::ChromosomeType, numChromosomes>;
-  ChromosomeContainer chromosomes{};
-
-  // Initialize chromosomes with the mutation functions
-  for(auto& chromosome: chromosomes)
-  {
-    mutateFunctions[0](chromosome.x);
-    mutateFunctions[1](chromosome.y);
-  }
+  auto chromosomes = std::array<Rosenbrock::ChromosomeType, numChromosomes>{};
+  auto scores = std::array<Rosenbrock::ScoreType, numChromosomes>{};
 
   constexpr auto numIterations{100};
   constexpr auto tournamentSize{5};
   constexpr auto crossoverProbability{0.4};
-
-  using ScoreContainer = std::array<Rosenbrock::ScoreType, numChromosomes>;
-  ScoreContainer scores{};
+  constexpr auto mutateProbability{0.8};
 
   evy::Pipeline::run(
       chromosomes, 
@@ -86,8 +88,10 @@ int main()
       // Pipeline start
       evy::Evaluate(scores, Rosenbrock::objFunction),
       evy::SelectWithTournament(scores, tournamentSize),
-      evy::Crossover(evy::ConstantProbability(crossoverProbability), crossoverStrategy),
-      evy::Mutation(mutationStrategy)
+      evy::Crossover(
+        evy::ConstantProbability(crossoverProbability), 
+        evy::TwoPointCrossover<Rosenbrock::ChromosomeType>{}),
+      evy::Mutation(getMutateStrategy(mutateProbability))
       // Pipeline end
   );
 
