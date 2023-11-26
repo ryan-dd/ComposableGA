@@ -75,6 +75,8 @@ int main()
   // Initialize chromosomes
   constexpr auto numChromosomes{10000};
   auto chromosomes = std::array<Rosenbrock::ChromosomeType, numChromosomes>{};
+  initializeChromosome(chromosomes);
+
   auto scores = std::array<Rosenbrock::ScoreType, numChromosomes>{};
 
   constexpr auto numIterations{100};
