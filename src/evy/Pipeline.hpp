@@ -25,7 +25,7 @@ namespace Pipeline
   {
     while(true)
     {
-      // Invokes each function in left to right order
+      // Invokes each function
       (std::forward<PipelineFunctions>(functions)(std::forward<ChromosomeContainer>(chromosomes)), ...);
 
       if(shouldStop())
