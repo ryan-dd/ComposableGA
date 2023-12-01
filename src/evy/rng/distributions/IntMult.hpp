@@ -9,7 +9,7 @@ private:
   std::uint32_t upperLimit;
 
 public:
-  constexpr IntMult(std::uint32_t upperLimit):
+  constexpr explicit IntMult(std::uint32_t upperLimit):
     upperLimit(upperLimit)
   {}
   // Int multiply

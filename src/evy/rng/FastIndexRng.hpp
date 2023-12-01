@@ -13,7 +13,7 @@ private:
   Xoshiro256ss rng{};
   IntMult intMult;
 public:
-  FastIndexRng(std::size_t max):
+  explicit FastIndexRng(std::size_t max):
     rng{},
     intMult(max)
   {

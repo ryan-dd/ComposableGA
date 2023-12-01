@@ -13,7 +13,7 @@ public:
   {
   }
 
-  constexpr ValueType operator()()
+  constexpr ValueType operator()() const
   {
     return threshold;
   }

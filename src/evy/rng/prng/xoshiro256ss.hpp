@@ -46,7 +46,7 @@ public:
   }
 
 private:
-  uint64_t state[4];
+  uint64_t state[4]{};
 };
 
 #endif
