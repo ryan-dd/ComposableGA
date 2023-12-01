@@ -16,29 +16,11 @@ constexpr std::size_t compileTimeSize()
   {
     return std::tuple_size_v<T>;
   }
-}
-
-template<typename ChromosomeType>
-constexpr std::size_t getSize(ChromosomeType& chromosome)
-{
-  if constexpr(std::is_aggregate_v<ChromosomeType>)
+  else
   {
-    return boost::pfr::tuple_size_v<ChromosomeType>;
-  }
-  else if constexpr(TupleLike<ChromosomeType>)
-  {
-    return std::tuple_size_v<ChromosomeType>;
-  }
-  else if constexpr( requires (ChromosomeType chromosome){ chromosome.size(); } )
-  {
-    return chromosome.size();
-  }
-  else if constexpr( requires { ChromosomeType::size(); } )
-  {
-    return ChromosomeType::size();
+    static_assert(false, "Must be aggregate or tupleLike in function");
   }
 }
-
 
 }
 
