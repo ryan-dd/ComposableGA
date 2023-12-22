@@ -80,9 +80,9 @@ int main()
   auto scores = std::array<Rosenbrock::ScoreType, numChromosomes>{};
 
   constexpr auto numIterations{100};
-  constexpr auto tournamentSize{5};
+  constexpr auto tournamentSize{30};
   constexpr auto crossoverProbability{0.4};
-  constexpr auto mutateProbability{0.8};
+  constexpr auto mutateProbability{0.2};
 
   evy::Pipeline::run(
       chromosomes, 
