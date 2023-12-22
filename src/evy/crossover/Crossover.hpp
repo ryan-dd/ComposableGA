@@ -1,7 +1,7 @@
 #ifndef EVY_CROSSOVER_HPP
 #define EVY_CROSSOVER_HPP
 
-#include "../rng/StdProbabilityRng.hpp"
+#include "evy/rng/StdProbabilityRng.hpp"
 
 #include <ranges>
 
