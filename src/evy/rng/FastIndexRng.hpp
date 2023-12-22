@@ -1,8 +1,8 @@
 #ifndef EVY_FAST_INDEX_RNG_HPP
 #define EVY_FAST_INDEX_RNG_HPP
 
-#include "prng/xoshiro256ss.hpp"
-#include "distributions/IntMult.hpp"
+#include "evy/rng/prng/xoshiro256ss.hpp"
+#include "evy/rng/distributions/IntMult.hpp"
 
 namespace evy
 {

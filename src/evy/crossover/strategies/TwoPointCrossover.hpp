@@ -1,9 +1,9 @@
 #ifndef EVY_TWO_POINT_CROSSOVER_HPP
 #define EVY_TWO_POINT_CROSSOVER_HPP
 
-#include "../../util/GetSize.hpp"
-#include "../../util/AggregateSwap.hpp"
-#include "../../rng/FastIndexRng.hpp"
+#include "evy/util/GetSize.hpp"
+#include "evy/util/AggregateSwap.hpp"
+#include "evy/rng/FastIndexRng.hpp"
 
 namespace evy
 {

@@ -2,6 +2,7 @@
 #define EVY_INT_TYPE_HPP
 
 #include <type_traits>
+
 namespace evy 
 {
 

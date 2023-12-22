@@ -1,14 +1,14 @@
 #ifndef EVY_AGGREGATE_SWAP_HPP
 #define EVY_AGGREGATE_SWAP_HPP
 
+#include <boost/pfr.hpp>
+
 #include <tuple>
 #include <utility>
 #include <type_traits>
 #include <stdexcept>
 #include <cassert>
 #include <ranges>
-
-#include <boost/pfr.hpp>
 
 namespace evy
 {
